@@ -1,22 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Habit Tracker</title>
-</head>
-<body class="nunito-font">
-  <div id="root">
-    <nav class="flex">
-      <h1>My Habits</h1>
-      <h1>Profile</h1>
-      
-    </nav>
-    <section class="tools">
-      
-    </section>
-  </div>
-  <script type="module" src="/src/main.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Habit Tracker</title>
+  </head>
+  <body class="nunito-font">
+    <div id="root">
+      <nav class="flex-row">
+        <h1>My Habits</h1>
+        <h1>Profile</h1>
+      </nav>
+
+      <section class="user-tools flex-row">
+        <div class="user-search">
+          <input
+            type="search"
+            name="search-result"
+            id="search-bar"
+            placeholder="Find your habits"
+          />
+        </div>
+        <button class="user-add-habit">Add Habit</button>
+        <button class="user-filters">Filters</button>
+      </section>
+
+      <section class="user-habits-container flex-row flex-center-items">
+        <p>No habits created yet.</p>
+      </section>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
 </html>
