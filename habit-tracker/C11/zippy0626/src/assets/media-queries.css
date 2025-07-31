@@ -1,4 +1,8 @@
 @media (max-width: 475px) {
+  body {
+    padding: 1rem .75rem;
+  }
+
   .user-habits-container {
     padding: 0 1rem;
   }

@@ -139,7 +139,7 @@ nav h1:active {
 }
 
 .habit-card-boxes {
-  width: 350px;
+  width: 400px;
   height: 250px;
   background-color: black;
   flex: 0 0 auto;
