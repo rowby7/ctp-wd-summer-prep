@@ -1,0 +1,10 @@
+@media (max-width: 475px) {
+  .user-habits-container {
+    padding: 0 1rem;
+  }
+
+  .habit-card {
+    padding: .75rem;
+  }
+  
+}
