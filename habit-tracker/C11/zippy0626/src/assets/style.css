@@ -15,11 +15,10 @@
 
 html, body {
   min-height: 100vh;
-  height: auto;
 }
 
 body {
-  padding: 1rem 4rem 1rem 4rem;
+  padding: 1rem 2rem 1rem 2rem;
 }
 
 /* Generics */
@@ -53,7 +52,6 @@ body {
 nav {
   gap: 3rem;
   min-height: 60px;
-  max-height: fit-content;
   align-items: center;
   justify-content: center;
 }
@@ -77,28 +75,30 @@ nav h1:active {
 .user-tools {
   margin: 2rem 0 2rem 0;
   padding: 0.5rem 2rem 0.5rem 2rem;
-
   min-height: 60px;
-  max-height: fit-content;
-  width: 100%;
 
+  justify-content: center;
   align-items: center;
-  flex-flow: row;
+  gap: 1rem;
+
+  flex-wrap: wrap;
+  user-select: none;
 }
 
 .user-search {
-  width: 50%;
+  /* responsive */
+  width: 100%;
+  max-width: 500px;
+  min-width: 150px;
 }
 
 .user-tools button {
   cursor: pointer;
 }
 
-
 #search-bar {
   width: 100%;
-  height: 20px;
-  padding: 1rem 0 1rem 0.5rem;
+  padding: .5rem .5rem;
   border-radius: 5px;
 }
 
@@ -106,18 +106,41 @@ nav h1:active {
 .user-habits-container {
   width: 100%;
   min-height: 300px;
-  height: auto;
-  max-height: none;
-  padding: 0 2rem 0 2rem;
+  padding: 0 4.5rem;
   gap: 2rem;
 }
 
+/* card */
 .habit-card {
-  padding: 1rem 2rem 1rem 2rem;
+  padding: 1.5rem;
   min-height: 300px;
   border-radius: 8px;
+  gap: .5rem;
 }
 
 .habit-card-title {
   user-select: none;
+}
+
+.habit-card .flex-row {
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.habit-card-info {
+  width: 100%;
+  max-width: 400px;
+}
+
+.habit-card-date-info {
+  overflow-x: auto;
+}
+
+.habit-card-boxes {
+  width: 350px;
+  height: 250px;
+  background-color: black;
+  flex: 0 0 auto;
 }
