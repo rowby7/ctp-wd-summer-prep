@@ -37,4 +37,15 @@ class BooleanHabit {
   }
 }
 
+function creatHabit(name, description, habitType, quantityFormat = undefined) {
+  if (habitType === "quantitative") {
+    const habit = new QuantitativeHabit(name, description, quantityFormat);
+    return habit
+  };
+  if (habitType === "boolean") {
+    const habit = new BooleanHabit(name, description);
+    return habit
+  };
+}
+
 export { QuantitativeHabit, BooleanHabit };
