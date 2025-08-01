@@ -11,16 +11,16 @@ export default class Model {
 
   getAllHabits() {
     const data = localStorage.getItem("all-habits");
-    return data ? JSON.parse(data) : [];
+    return data ? JSON.parse(data) : undefined;
   }
 
   setHabit(...habits) {
     // update
     const allHabits = this.getAllHabits();
     for (const habit of habits) {
-      let existingIndex = allHabits.findIndex((h) => h.name === habit.name)
-      if (existingIndex !== -1) {
-        allHabits[existingIndex] = habit
+      let i = allHabits.findIndex((h) => h.name === habit.name)
+      if (i !== -1) {
+        allHabits[i] = habit
       } else {
         allHabits.push(habit)
       }
@@ -49,6 +49,14 @@ export default class Model {
   }
 
   deleteHabit(name) {
-    // delete
+    const allHabits = this.getAllHabits()
+    let i = allHabits.findIndex((habit) => habit.name === name)
+    if (i !== -1) {
+      allHabits.splice(i, 1)
+    } else {
+      return undefined
+    }
+
+    localStorage.setItem("all-habits", JSON.stringify(allHabits))
   }
 }
