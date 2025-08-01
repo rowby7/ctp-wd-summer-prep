@@ -1,34 +1,40 @@
-export default class Habit {
-  constructor(name, description, timesCompleted = 0, quantityCompleted = 0, quantityFormat = undefined) {
+// habitType is `quantitative` or `boolean`
+
+class QuantitativeHabit {
+  constructor(name, description, quantityFormat = undefined, quantity = 0) {
     this.name = name;
     this.description = description;
-    this.timesCompleted = timesCompleted
-    this.quantityCompleted = quantityCompleted
-    this.quantityFormat = quantityFormat
-  }
-
-  incrementTimesCompleted() {
-    this.timesCompleted += 1
-  }
-
-  addQuantityCompleted(amount) {
-    this.quantityCompleted += amount;
+    this.quantityFormat = quantityFormat;
+    this.quantity = quantity;
   }
 
   changeQuantityFormat(newFormat) {
-    this.quantityFormat = newFormat
+    this.quantityFormat = newFormat;
   }
 
-  getTimesCompleted() {
-    return this.timesCompleted
+  increaseQuantity(amount) {
+    this.quantity += amount;
   }
 
-  getQuantityCompleted() {
-    return this.quantityCompleted
-  }
-
-  reset() {
-    this.timesCompleted = 0;
-    this.quantityCompleted = 0;
+  resetQuantity() {
+    this.quantity = 0
   }
 }
+
+class BooleanHabit {
+  constructor(name, description, timesCompleted = 0) {
+    this.name = name;
+    this.description = description;
+    this.timesCompleted = timesCompleted;
+  }
+
+  increaseTimesCompleted(amount) {
+    this.timesCompleted += amount;
+  }
+
+  resetTimesCompleted() {
+    this.timesCompleted = 0
+  }
+}
+
+export { QuantitativeHabit, BooleanHabit };
