@@ -15,12 +15,7 @@
 
       <section class="user-tools flex-row">
         <div class="user-search">
-          <input
-            type="search"
-            name="search-result"
-            id="search-bar"
-            placeholder="Find your habits"
-          />
+          <input type="search" name="search-result" id="search-bar" placeholder="Find your habits" />
         </div>
         <button class="user-add-habit">Add Habit</button>
         <button class="user-filters">Filters</button>
@@ -33,7 +28,11 @@
           <h1 class="habit-card-title">Habit Example</h1>
           <div class="flex-row">
             <div class="habit-card-info">
-              <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Officiis, dolores error optio ipsum ad praesentium sapiente, a molestias voluptas iusto numquam quod neque sed sunt voluptatibus natus, nemo hic eveniet!</p>
+              <p>
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Officiis, dolores error optio ipsum ad
+                praesentium sapiente, a molestias voluptas iusto numquam quod neque sed sunt voluptatibus natus, nemo
+                hic eveniet!
+              </p>
               <div class="habit-card-tools"></div>
             </div>
             <div class="habit-card-date-info">
@@ -41,7 +40,54 @@
             </div>
           </div>
         </article>
+      </section>
 
+      <div class="modal-overlay"></div>
+
+      <section class="modal flex-col">
+        <h1 class="modal-heading">Add New Habit</h1>
+        <form id="modal-form" class="flex-col">
+          <fieldset class="flex-col">
+            <div>
+              <label for="habit-name">
+                Habit Name
+                <span aria-label="Required Field" class="required-asterisk">*</span>
+              </label>
+              <input type="text" id="habit-name" name="habitName" required/>
+            </div>
+
+            <div>
+              <label for="habit-category">
+                Category
+                <span aria-label="Required Field" class="required-asterisk">*</span>
+              </label>
+              <input type="text" id="habit-category" name="habitCategory" required />
+            </div>
+
+            <div>
+              <p>
+                Habit Type
+                <span aria-label="Required Field" class="required-asterisk">*</span>
+              </p>
+              <p>
+                <label for="complete">Single Completion</label>
+                <input type="radio" name="habitType" id="complete" value="complete" required />
+                <label for="number">Number</label>
+                <input type="radio" name="habitType" id="number" value="number" required />
+              </p>
+            </div>
+
+            <div>
+              <label for="habit-desc">Habit Description</label>
+              <textarea name="habitDesc" id="habit-desc" class="nunito-font"></textarea>
+            </div>
+          </fieldset>
+
+          <section class="modal-form-buttons">
+            <button type="submit">Create Habit</button>
+            <button type="reset">Clear</button>
+          </section>
+        </form>
       </section>
     </div>
     <script type="module" src="/src/main.js"></script>

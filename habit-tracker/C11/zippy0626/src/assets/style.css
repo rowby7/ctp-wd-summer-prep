@@ -27,7 +27,7 @@ body {
   padding: 0;
   box-sizing: border-box;
 
-  border: 1px solid red;
+  /* border: 1px solid red; */
 }
 
 .flex-row {
@@ -47,6 +47,12 @@ body {
 .hidden {
   display: none;
 }
+
+.required-asterisk {
+  color: red;
+  font-weight: bold;
+}
+
 /**/
 
 nav {
@@ -143,4 +149,60 @@ nav h1:active {
   height: 250px;
   background-color: black;
   flex: 0 0 auto;
+}
+
+/* modal box */
+.modal {
+  padding: .8rem;
+  margin: 1rem;
+  border-radius: 8px;
+  z-index: 2;
+  width: 100%;
+  max-width: 400px;
+  height: 450px;
+  background-color: pink;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+}
+
+.modal-overlay {
+  padding: .8rem;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(3px);
+  z-index: 1;
+}
+
+/* actual modal form */
+#modal-form div {
+  user-select: none;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 6px;
+}
+
+#modal-form input[type="text"] {
+  padding: 3px;
+}
+
+#modal-form input[type="radio"][value="complete"] {
+  margin-right: 2rem;
+}
+
+#habit-desc {
+  resize: none;
+  height: 150px;
+  padding: .5rem;
+}
+
+.modal-form-buttons {
+  margin-left: auto;
 }
