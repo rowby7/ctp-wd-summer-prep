@@ -152,7 +152,7 @@ nav h1:active {
 }
 
 /* modal box */
-.modal {
+.add-habit-modal {
   padding: .8rem;
   border-radius: 8px;
   z-index: 2;
@@ -181,21 +181,25 @@ nav h1:active {
 }
 
 /* actual modal form */
-#modal-form div {
+#add-habit-modal-form div {
   user-select: none;
   display: flex;
   flex-direction: column;
   margin-bottom: 6px;
 }
 
-#modal-form input[type="text"] {
+#add-habit-modal-form fieldset {
+  border: none;
+}
+
+#add-habit-modal-form input[type="text"] {
   padding: 3px;
   width: 100%;
   min-width: 200px;
   max-width: 350px;
 }
 
-#modal-form input[type="radio"][value="complete"] {
+#add-habit-modal-form input[type="radio"][value="complete"] {
   margin-right: 2rem;
 }
 
@@ -205,6 +209,6 @@ nav h1:active {
   padding: .5rem;
 }
 
-.modal-form-buttons {
+.add-habit-modal-form-buttons {
   margin-left: auto;
 }
