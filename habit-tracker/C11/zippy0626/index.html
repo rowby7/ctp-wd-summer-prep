@@ -42,11 +42,11 @@
         </article>
       </section>
 
-      <div class="modal-overlay"></div>
+      <div class="modal-overlay hidden"></div>
 
-      <section class="modal flex-col">
-        <h1 class="modal-heading">Add New Habit</h1>
-        <form id="modal-form" class="flex-col">
+      <section class="add-habit-modal flex-col hidden">
+        <h1 class="add-habit-modal-heading">Add New Habit</h1>
+        <form id="add-habit-modal-form" class="flex-col">
           <fieldset class="flex-col">
             <div>
               <label for="habit-name">
@@ -83,9 +83,9 @@
             </div>
           </fieldset>
 
-          <section class="modal-form-buttons">
-            <button type="submit">Create Habit</button>
-            <button type="reset">Clear</button>
+          <section class="add-habit-modal-form-buttons">
+            <button class="create-habit-btn" type="submit">Create Habit</button>
+            <button class="cancel-habit-btn" type="reset">Cancel</button>
           </section>
         </form>
       </section>
