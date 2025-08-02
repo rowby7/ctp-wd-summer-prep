@@ -23,6 +23,17 @@ const View = {
     return document.querySelector(".cancel-habit-btn");
   },
 
+  getAddHabitFormData() {
+    const d = new FormData(document.getElementById("add-habit-modal-form"))
+    const data = {}
+    for (const pair of d.entries()) {
+      let key = pair[0]
+      let val = pair[1]
+      data[key] = val
+    }
+    return data
+  },
+
   showAddHabitModal() {
     const addHabitModal = document.querySelector(".add-habit-modal");
     const overlay = document.querySelector(".modal-overlay");
