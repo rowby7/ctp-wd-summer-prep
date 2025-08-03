@@ -1,48 +1,87 @@
+import { format } from "date-fns";
+
 const View = {
   query(selector) {
     return document.querySelector(selector);
   },
 
-  onAddHabitClick(callback) {
-    this.query(".user-add-habit").addEventListener("click", callback);
+  onAddHabitBtnClick(callback) {
+    View.query(".user-add-habit").addEventListener("click", callback);
   },
 
   onModalOverlayClick(callback) {
-    this.query(".modal-overlay").addEventListener("click", callback);
+    View.query(".modal-overlay").addEventListener("click", callback);
+  },
+
+  habit: {
+    displayHabits(habits) {
+      const habitContainer = View.query(".user-habits-container");
+      habitContainer.innerHTML = "";
+      // remember to handle no habits found later
+
+      for (const habit of habits) {
+        const habitCard = this.getHabitCard(habit);
+        habitContainer.innerHTML += habitCard;
+      }
+    },
+
+    getHabitCard(habit) {
+      const year = new Date().getFullYear();
+      let date = new Date(year, 0, 1); // Jan 1st
+      let end = new Date(year, 11, 31); // Dec 31st
+
+      // Generate Date Boxes
+      let dateBoxes = "";
+
+      while (date <= end) {
+        const dateStr = format(date, "yyyy-MM-dd");
+        dateBoxes += `<div class="date-box" data-date="${dateStr}"></div>`;
+        date.setDate(date.getDate() + 1);
+      }
+
+      const str = `
+        <article class="habit-card flex-col">
+          <h1 class="habit-card-name" data-habit-name="${habit.name}">${habit.name}</h1>
+          <div class="habit-date-boxes-container flex-row">
+            <div class="habit-date-boxes">
+              ${dateBoxes}
+            </div>
+          </div>
+        </article>
+      `;
+
+      return str;
+    },
   },
 
   // group related methods in object properties
   addHabitModal: {
-    query(selector) {
-      return document.querySelector(selector);
-    },
-
     show() {
-      const addHabitModal = this.query(".add-habit-modal");
-      const overlay = this.query(".modal-overlay");
+      const addHabitModal = View.query(".add-habit-modal");
+      const overlay = View.query(".modal-overlay");
       overlay.classList.remove("hidden");
       addHabitModal.classList.remove("hidden");
     },
 
     hide() {
-      const addHabitModal = this.query(".add-habit-modal");
-      const overlay = this.query(".modal-overlay");
+      const addHabitModal = View.query(".add-habit-modal");
+      const overlay = View.query(".modal-overlay");
       overlay.classList.add("hidden");
       addHabitModal.classList.add("hidden");
     },
 
     clear() {
-      this.query("#add-habit-modal-form").reset();
+      View.query("#add-habit-modal-form").reset();
     },
 
     showHabitQuantityFormat() {
-      this.query(".habit-quantity-format").classList.remove("hidden")
-      this.query("#habit-quantity-format").required = true
+      View.query(".habit-quantity-format").classList.remove("hidden");
+      View.query("#habit-quantity-format").required = true;
     },
 
     hideHabitQuantityFormat() {
-      this.query(".habit-quantity-format").classList.add("hidden")
-      this.query("#habit-quantity-format").required = false
+      View.query(".habit-quantity-format").classList.add("hidden");
+      View.query("#habit-quantity-format").required = false;
     },
 
     getFormData() {
@@ -57,16 +96,16 @@ const View = {
     },
 
     onSubmitClick(callback) {
-      this.query("#add-habit-modal-form").addEventListener("submit", callback);
+      View.query("#add-habit-modal-form").addEventListener("submit", callback);
     },
 
     onCancelClick(callback) {
-      this.query(".cancel-habit-btn").addEventListener("click", callback);
+      View.query(".cancel-habit-btn").addEventListener("click", callback);
     },
 
     onHabitTypeClick(callback) {
-      this.query("#complete").addEventListener("click", callback);
-      this.query("#number").addEventListener("click", callback);
+      View.query("#complete").addEventListener("click", callback);
+      View.query("#number").addEventListener("click", callback);
     },
   },
 };
