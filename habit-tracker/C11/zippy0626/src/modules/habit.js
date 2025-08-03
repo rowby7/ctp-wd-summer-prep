@@ -1,11 +1,12 @@
 // habitType is `quantitative` or `boolean`
 
 class QuantitativeHabit {
-  constructor(name, description, quantityFormat = undefined, quantity = 0) {
+  constructor(name, description, quantityFormat = undefined, quantity = 0, category = undefined) {
     this.name = name;
     this.description = description;
     this.quantityFormat = quantityFormat;
     this.quantity = quantity;
+    this.category = category
   }
 
   changeQuantityFormat(newFormat) {
@@ -22,10 +23,11 @@ class QuantitativeHabit {
 }
 
 class BooleanHabit {
-  constructor(name, description, timesCompleted = 0) {
+  constructor(name, description, timesCompleted = 0, category = undefined) {
     this.name = name;
     this.description = description;
     this.timesCompleted = timesCompleted;
+    this.category = category
   }
 
   increaseTimesCompleted(amount) {
