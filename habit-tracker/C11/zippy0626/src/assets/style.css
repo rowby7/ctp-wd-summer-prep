@@ -196,7 +196,7 @@ nav h1:active {
   padding: 3px;
   width: 100%;
   min-width: 200px;
-  max-width: 350px;
+  max-width: 280px;
 }
 
 #add-habit-modal-form input[type="radio"][value="complete"] {
