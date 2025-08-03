@@ -35,7 +35,6 @@ const Controller = {
       // do some stuff with Model.js here
       const habitData = View.addHabitModal.getFormData();
       const habit = Model.createHabit(habitData);
-      console.log(habit)
       Model.setHabit(habit);
     });
   },

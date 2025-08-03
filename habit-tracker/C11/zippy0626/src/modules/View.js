@@ -57,7 +57,7 @@ const View = {
     },
 
     onSubmitClick(callback) {
-      this.query(".create-habit-btn").addEventListener("submit", callback);
+      this.query("#add-habit-modal-form").addEventListener("submit", callback);
     },
 
     onCancelClick(callback) {
