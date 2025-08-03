@@ -1,4 +1,4 @@
-// habitType is `quantitative` or `boolean`
+import { format, addDays } from "date-fns";
 
 class QuantitativeHabit {
   constructor(name, description, quantityFormat = undefined, quantity = 0, category = undefined) {
@@ -6,7 +6,9 @@ class QuantitativeHabit {
     this.description = description;
     this.quantityFormat = quantityFormat;
     this.quantity = quantity;
-    this.category = category
+    this.category = category;
+    this.createdDate = new Date();
+    this.lastCompletedDate = undefined;
   }
 
   changeQuantityFormat(newFormat) {
@@ -18,7 +20,7 @@ class QuantitativeHabit {
   }
 
   resetQuantity() {
-    this.quantity = 0
+    this.quantity = 0;
   }
 }
 
@@ -27,7 +29,9 @@ class BooleanHabit {
     this.name = name;
     this.description = description;
     this.timesCompleted = timesCompleted;
-    this.category = category
+    this.category = category;
+    this.createdDate = new Date();
+    this.lastCompletedDate = undefined;
   }
 
   increaseTimesCompleted(amount) {
@@ -35,7 +39,7 @@ class BooleanHabit {
   }
 
   resetTimesCompleted() {
-    this.timesCompleted = 0
+    this.timesCompleted = 0;
   }
 }
 
