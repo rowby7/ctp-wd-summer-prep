@@ -1,27 +1,32 @@
 import View from "./View.js";
+import Model from "./Model.js"
 
 const Controller = {
   init() {
+    Model.initStorage()
+
     View.onAddHabitClick(() => {
-      View.clearAddHabitForm();
-      View.showAddHabitModal();
+      View.addHabitModal.clear();
+      View.addHabitModal.show();
     });
 
     View.onModalOverlayClick(() => {
-      View.clearAddHabitForm();
-      View.hideAddHabitModal();
+      View.addHabitModal.clear();
+      View.addHabitModal.hide();
     });
 
-    View.onCreateHabitClick((event) => {
+    View.addHabitModal.onCreateClick((event) => {
       event.preventDefault();
-      View.hideAddHabitModal();
+      View.addHabitModal.hide();
       // do some stuff with Model.js here
-      const data = View.getAddHabitFormData()
+      const habitData = View.addHabitModal.getFormData()
+      const habit = Model.createHabit(habitData)
+      Model.setHabit(habit)
     });
 
-    View.onCancelHabitClick(() => {
-      View.clearAddHabitForm();
-      View.hideAddHabitModal();
+    View.addHabitModal.onCancelClick(() => {
+      View.addHabitModal.clear();
+      View.addHabitModal.hide();
     });
   },
 };
