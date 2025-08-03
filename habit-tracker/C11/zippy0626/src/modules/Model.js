@@ -9,7 +9,6 @@ const Model = {
 
   createHabit(habitData) {
     // Quantitative Habit
-    // add quantity format to modal form !!! use logic in view
     if (habitData["habitType"] === "number") {
       const habit = new QuantitativeHabit(
         habitData["habitName"],
