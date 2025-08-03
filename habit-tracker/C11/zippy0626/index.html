@@ -53,7 +53,7 @@
                 Habit Name
                 <span aria-label="Required Field" class="required-asterisk">*</span>
               </label>
-              <input type="text" id="habit-name" name="habitName" required/>
+              <input type="text" id="habit-name" name="habitName" placeholder="E.g. Running" required />
             </div>
 
             <div>
@@ -61,7 +61,13 @@
                 Category
                 <span aria-label="Required Field" class="required-asterisk">*</span>
               </label>
-              <input type="text" id="habit-category" name="habitCategory" required />
+              <input
+                type="text"
+                id="habit-category"
+                name="habitCategory"
+                required
+                placeholder="E.g. Health, Work, Study"
+              />
             </div>
 
             <div>
@@ -70,11 +76,25 @@
                 <span aria-label="Required Field" class="required-asterisk">*</span>
               </p>
               <p>
-                <label for="complete">Single Completion</label>
+                <label for="complete">Done/Not Done</label>
                 <input type="radio" name="habitType" id="complete" value="complete" required />
-                <label for="number">Number</label>
+                <label for="number">Track Quantity</label>
                 <input type="radio" name="habitType" id="number" value="number" required />
               </p>
+            </div>
+
+            <div>
+              <label for="habit-quantity-format">
+                Habit Quantity Format
+                <span aria-label="Required Field" class="required-asterisk">*</span>
+              </label>
+              <input
+                type="text"
+                name="habitQuantityFormat"
+                id="habit-quantity-format"
+                required
+                placeholder="E.g. minutes, hours"
+              />
             </div>
 
             <div>
