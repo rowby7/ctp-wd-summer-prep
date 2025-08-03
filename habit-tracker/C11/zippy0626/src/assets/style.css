@@ -79,7 +79,7 @@ nav h1:active {
 
 /* search, filtering stuff, etc */
 .user-tools {
-  margin: 2rem 0 2rem 0;
+  margin: 2rem 1rem 2rem 1rem;
   padding: 1rem 2rem 1rem 2rem;
   min-height: 60px;
   border-radius: 8px;
