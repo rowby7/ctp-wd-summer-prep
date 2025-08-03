@@ -1,4 +1,4 @@
-import { format, addDays } from "date-fns";
+import { format } from "date-fns";
 
 class QuantitativeHabit {
   constructor(name, description, quantityFormat = undefined, quantity = 0, category = undefined) {
@@ -7,8 +7,8 @@ class QuantitativeHabit {
     this.quantityFormat = quantityFormat;
     this.quantity = quantity;
     this.category = category;
-    this.createdDate = new Date();
-    this.lastCompletedDate = undefined;
+    this.createdDate = format(new Date(), "yyyy-MM-dd");
+    this.completionHistory = {}
   }
 
   changeQuantityFormat(newFormat) {
@@ -30,8 +30,8 @@ class BooleanHabit {
     this.description = description;
     this.timesCompleted = timesCompleted;
     this.category = category;
-    this.createdDate = new Date();
-    this.lastCompletedDate = undefined;
+    this.createdDate = format(new Date(), "yyyy-MM-dd");
+    this.completionHistory = {}
   }
 
   increaseTimesCompleted(amount) {
