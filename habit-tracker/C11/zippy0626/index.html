@@ -48,7 +48,7 @@
         <h1 class="add-habit-modal-heading">Add New Habit</h1>
         <form id="add-habit-modal-form" class="flex-col">
           <fieldset class="flex-col">
-            <div>
+            <div class="habit-name">
               <label for="habit-name">
                 Habit Name
                 <span aria-label="Required Field" class="required-asterisk">*</span>
@@ -56,7 +56,7 @@
               <input type="text" id="habit-name" name="habitName" placeholder="E.g. Running" required />
             </div>
 
-            <div>
+            <div class="habit-category">
               <label for="habit-category">
                 Category
                 <span aria-label="Required Field" class="required-asterisk">*</span>
@@ -70,7 +70,7 @@
               />
             </div>
 
-            <div>
+            <div class="habit-type">
               <p>
                 Habit Type
                 <span aria-label="Required Field" class="required-asterisk">*</span>
@@ -83,7 +83,7 @@
               </p>
             </div>
 
-            <div>
+            <div class="habit-quantity-format hidden">
               <label for="habit-quantity-format">
                 Habit Quantity Format
                 <span aria-label="Required Field" class="required-asterisk">*</span>
@@ -92,14 +92,20 @@
                 type="text"
                 name="habitQuantityFormat"
                 id="habit-quantity-format"
-                required
-                placeholder="E.g. minutes, hours"
+                placeholder="E.g. minutes, hours, miles"
               />
             </div>
 
-            <div>
+            <div class="habit-description">
               <label for="habit-desc">Habit Description</label>
-              <textarea name="habitDesc" id="habit-desc" class="nunito-font"></textarea>
+              <textarea
+                name="habitDesc"
+                id="habit-desc"
+                class="nunito-font"
+                placeholder="Describe your habit. Use cues like time and place (“I will [do habit] at [time] in [location]”).
+                &#10;Stack it with an existing habit (“After [current habit], I will [new habit]”). 
+                &#10;What will make this habit obvious, attractive, easy, and satisfying?"
+              ></textarea>
             </div>
           </fieldset>
 

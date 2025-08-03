@@ -35,6 +35,16 @@ const View = {
       this.query("#add-habit-modal-form").reset();
     },
 
+    showHabitQuantityFormat() {
+      this.query(".habit-quantity-format").classList.remove("hidden")
+      this.query("#habit-quantity-format").required = true
+    },
+
+    hideHabitQuantityFormat() {
+      this.query(".habit-quantity-format").classList.add("hidden")
+      this.query("#habit-quantity-format").required = false
+    },
+
     getFormData() {
       const d = new FormData(document.getElementById("add-habit-modal-form"));
       const data = {};
@@ -52,6 +62,11 @@ const View = {
 
     onCancelClick(callback) {
       this.query(".cancel-habit-btn").addEventListener("click", callback);
+    },
+
+    onHabitTypeClick(callback) {
+      this.query("#complete").addEventListener("click", callback);
+      this.query("#number").addEventListener("click", callback);
     },
   },
 };

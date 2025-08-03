@@ -20,6 +20,15 @@ const Controller = {
       View.addHabitModal.hide();
     });
 
+    View.addHabitModal.onHabitTypeClick((event) => {
+      let element = event.target
+      if (element.value === "number") {
+        View.addHabitModal.showHabitQuantityFormat()
+      } else {
+        View.addHabitModal.hideHabitQuantityFormat()
+      }
+    })
+
     View.addHabitModal.onSubmitClick((event) => {
       event.preventDefault();
       View.addHabitModal.hide();
