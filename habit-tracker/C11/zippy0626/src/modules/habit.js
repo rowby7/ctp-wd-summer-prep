@@ -33,6 +33,36 @@ class QuantitativeHabit {
   resetQuantity() {
     this.quantity = 0;
   }
+
+  getCurrentStreak() {
+    let streak = 0;
+    // Newest to oldest date keys
+    const dates = Object.keys(this.completionHistory).sort().reverse();
+    for (const date of dates) {
+      if (this.completionHistory[date].completed === true) {
+        streak += 1;
+      } else {
+        break;
+      }
+    }
+    return streak;
+  }
+
+  getLongestStreak() {
+    let longestStreak = 0;
+    let streak = 0;
+
+    const dates = Object.keys(this.completionHistory).sort().reverse();
+    for (const date of dates) {
+      if (this.completionHistory[date].completed === true) {
+        streak += 1;
+        if (streak > longestStreak) longestStreak = streak;
+      } else {
+        streak = 0;
+      }
+    }
+    return longestStreak;
+  }
 }
 
 class BooleanHabit {
@@ -62,6 +92,36 @@ class BooleanHabit {
 
   resetTimesCompleted() {
     this.timesCompleted = 0;
+  }
+
+  getCurrentStreak() {
+    let streak = 0;
+    // Newest to oldest date keys
+    const dates = Object.keys(this.completionHistory).sort().reverse();
+    for (const date of dates) {
+      if (this.completionHistory[date].completed === true) {
+        streak += 1;
+      } else {
+        break;
+      }
+    }
+    return streak;
+  }
+
+  getLongestStreak() {
+    let longestStreak = 0;
+    let streak = 0;
+
+    const dates = Object.keys(this.completionHistory).sort().reverse();
+    for (const date of dates) {
+      if (this.completionHistory[date].completed === true) {
+        streak += 1;
+        if (streak > longestStreak) longestStreak = streak;
+      } else {
+        streak = 0;
+      }
+    }
+    return longestStreak;
   }
 }
 
