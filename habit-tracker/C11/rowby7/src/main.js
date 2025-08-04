@@ -1,25 +1,23 @@
-const form = document.getElementById('submit_habit')
+const form = document.getElementById('habit_form')
 const habits = []
-form.addEventListener((event) => {
-    event.preventDefault()
-    const data = new FormData(event.target)
-    
-    const habit = {
-        habitName: data.get('habit_name'),
-        targetStreak: data.get('target_streak')
-    }
-    
-    habits.push(habit)
-    console.log(JSON.stringify(habits))
+
+form.addEventListener('submit', (event) => {
+  event.preventDefault()
+  const data = new FormData(event.target)
+
+  const habit = {
+    habitName: data.get('habit_name'),
+    targetStreak: data.get('target_streak')
+  }
+
+  habits.push(habit)
+  console.log(JSON.stringify(habits))
+  renderHabits(habits)
 })
 
 const renderHabits = (habits) => {
-const habitList = document.getElementById('habit_list')
-
-
-habitList.innerHtml = 
-    habits.map(habit => 
-        <li>${habit.name}; ${habit.targetStreak}</li>
-    ).join('\n')
-
+  const habitList = document.getElementById('habit_list')
+  habitList.innerHTML = habits.map(habit =>
+    `<li>${habit.habitName}; ${habit.targetStreak}</li>`
+  ).join('\n')
 }
