@@ -5,7 +5,9 @@ const Controller = {
   init() {
     Model.initStorage();
 
-    View.onAddHabitClick(() => {
+    View.habit.displayHabits(Model.getAllHabits());
+
+    View.onAddHabitBtnClick(() => {
       View.addHabitModal.clear();
       View.addHabitModal.show();
     });
@@ -21,21 +23,23 @@ const Controller = {
     });
 
     View.addHabitModal.onHabitTypeClick((event) => {
-      let element = event.target
+      let element = event.target;
       if (element.value === "number") {
-        View.addHabitModal.showHabitQuantityFormat()
+        View.addHabitModal.showHabitQuantityFormat();
       } else {
-        View.addHabitModal.hideHabitQuantityFormat()
+        View.addHabitModal.hideHabitQuantityFormat();
       }
-    })
+    });
 
     View.addHabitModal.onSubmitClick((event) => {
       event.preventDefault();
       View.addHabitModal.hide();
-      // do some stuff with Model.js here
+
       const habitData = View.addHabitModal.getFormData();
       const habit = Model.createHabit(habitData);
       Model.setHabit(habit);
+
+      View.habit.displayHabits(Model.getAllHabits())
     });
   },
 };

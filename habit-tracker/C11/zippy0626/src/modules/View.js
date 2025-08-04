@@ -30,7 +30,7 @@ const View = {
       let date = new Date(year, 0, 1); // Jan 1st
       let end = new Date(year, 11, 31); // Dec 31st
 
-      // Generate Date Boxes
+      // Generate Date Boxes (based on Habit's Completion History later)
       let dateBoxes = "";
 
       while (date <= end) {
