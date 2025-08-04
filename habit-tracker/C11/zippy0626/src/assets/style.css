@@ -79,8 +79,6 @@ nav h1:active {
 
 /* search, filtering stuff, etc */
 .user-tools {
-  margin: 2rem 1rem 2rem 1rem;
-  padding: 1rem 2rem 1rem 2rem;
   min-height: 60px;
   border-radius: 8px;
 
@@ -115,11 +113,10 @@ nav h1:active {
 .user-habits-container {
   width: 100%;
   min-height: 300px;
-  padding: 0 4.5rem;
   gap: 2rem;
 }
 
-/* card */
+/* habit card */
 .habit-card {
   padding: 1.5rem;
   min-height: 300px;
@@ -128,32 +125,35 @@ nav h1:active {
   background-color: lightblue;
 }
 
-.habit-card-title {
+.habit-card-name {
   user-select: none;
 }
 
-.habit-card .flex-row {
-  flex-wrap: wrap;
-  justify-content: space-around;
-  gap: 1rem;
-  padding: 1rem;
-}
-
-.habit-card-info {
-  width: 100%;
-  max-width: 400px;
-}
-
-.habit-card-date-info {
+.habit-date-boxes-container {
+  background-color: white;
   overflow-x: auto;
 }
 
-.habit-card-boxes {
-  width: 400px;
-  height: 250px;
-  background-color: black;
-  flex: 0 0 auto;
+.habit-date-boxes {
+  flex-shrink: 0;
+
+  display: grid;
+  grid-template-columns: repeat(52, 15px);
+  grid-template-rows: repeat(7, 15px);
+  gap: 2px;
+  grid-auto-flow: column;
+
+  margin: 2px 0 2px 2px;
 }
+
+.date-box {
+  width: 100%;
+  height: 100%;
+  background-color: rgb(202, 202, 202);
+  cursor: pointer;
+  border-radius: 1.5px;
+}
+
 
 /* modal box */
 .add-habit-modal {
