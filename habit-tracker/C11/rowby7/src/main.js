@@ -7,7 +7,8 @@ form.addEventListener('submit', (event) => {
 
   const habit = {
     habitName: data.get('habit_name'),
-    targetStreak: data.get('target_streak')
+    targetStreak: data.get('target_streak'),
+    completed: false
   }
 
   habits.push(habit)
@@ -17,7 +18,17 @@ form.addEventListener('submit', (event) => {
 
 const renderHabits = (habits) => {
   const habitList = document.getElementById('habit_list')
-  habitList.innerHTML = habits.map(habit =>
-    `<li>${habit.habitName}; ${habit.targetStreak}</li>`
+  habitList.innerHTML = habits.map((habit, index) =>
+    `<li>
+      ${habit.habitName}; ${habit.targetStreak}
+      <button onclick="toggleHabit(${index})">
+        ${habit.completed ? 'Mark Incomplete' : 'Mark Complete'}
+      </button>
+    </li>`
   ).join('\n')
+}
+
+window.toggleHabit = (index) => {
+  habits[index].completed = !habits[index].completed
+  renderHabits(habits)
 }
