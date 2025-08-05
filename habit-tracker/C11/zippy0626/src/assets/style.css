@@ -157,6 +157,11 @@ nav h1:active {
   border-radius: 1.5px;
 }
 
+.todays-date {
+  border: 1px solid red;
+}
+
+
 /* modal box */
 .add-habit-modal {
   padding: 0.8rem;

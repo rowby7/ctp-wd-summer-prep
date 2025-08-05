@@ -49,6 +49,12 @@ const View = {
         for (let day = new Date(firstDay); day <= lastDay; day.setDate(day.getDate() + 1)) {
           const box = document.createElement("div");
           box.classList.add("date-box");
+
+          // Highlight today's date
+          if (format(day, "yyyy-MM-dd") === format(new Date(), "yyyy-MM-dd")) {
+            box.classList.add("todays-date")
+          };
+          
           box.title = format(day, "MM-dd-yyyy");
           box.dataset.date = format(day, "yyyy-MM-dd");
           month.appendChild(box);
