@@ -21,36 +21,54 @@ const View = {
 
       for (const habit of habits) {
         const habitCard = this.getHabitCard(habit);
-        habitContainer.innerHTML += habitCard;
+        habitContainer.appendChild(habitCard)
       }
     },
 
     getHabitCard(habit) {
       const year = new Date().getFullYear();
-      let date = new Date(year, 0, 1); // Jan 1st
-      let end = new Date(year, 11, 31); // Dec 31st
 
-      // Generate Date Boxes (based on Habit's Completion History later)
-      let dateBoxes = "";
+      const monthsContainer = document.createElement("div");
+      monthsContainer.classList.add("month-container");
 
-      while (date <= end) {
-        const dateStr = format(date, "yyyy-MM-dd");
-        dateBoxes += `<div class="date-box" data-date="${dateStr}"></div>`;
-        date.setDate(date.getDate() + 1);
+      // Loop through the months
+      for (let monthIndex = 0; monthIndex < 12; monthIndex++) {
+        const month = document.createElement("div");
+        month.classList.add("month");
+
+        let firstDay = new Date(year, monthIndex, 1);
+        let lastDay = new Date(year, monthIndex + 1, 0); // 0th day of next month = last day of current month
+
+        // Month name for each month
+        const monthName = document.createElement('p')
+        monthName.classList.add('month-name')
+        monthName.textContent = firstDay.toLocaleString('default', { month: 'short' })
+        monthsContainer.appendChild(monthName)
+
+        // Loop through all days in the month && create boxes
+        for (let day = new Date(firstDay); day <= lastDay; day.setDate(day.getDate() + 1)) {
+          const box = document.createElement("div");
+          box.classList.add("date-box");
+          box.title = format(day, "MM-dd-yyyy");
+          box.dataset.date = format(day, "yyyy-MM-dd");
+          month.appendChild(box);
+        }
+
+        monthsContainer.appendChild(month);
       }
 
-      const str = `
-        <article class="habit-card flex-col">
-          <h1 class="habit-card-name" data-habit-name="${habit.name}">${habit.name}</h1>
-          <div class="habit-date-boxes-container flex-row">
-            <div class="habit-date-boxes">
-              ${dateBoxes}
-            </div>
-          </div>
-        </article>
-      `;
+      const habitCard = document.createElement("article");
+      habitCard.classList.add("habit-card");
 
-      return str;
+      const habitHeading = document.createElement("h1");
+      habitHeading.classList.add("habit-card-name");
+      habitHeading.dataset.habitName = habit.name;
+      habitHeading.textContent = habit.name;
+
+      habitCard.appendChild(habitHeading);
+      habitCard.appendChild(monthsContainer)
+
+      return habitCard;
     },
   },
 
