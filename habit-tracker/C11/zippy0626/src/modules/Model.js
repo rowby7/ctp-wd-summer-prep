@@ -10,16 +10,34 @@ const Model = {
   createHabit(name, description, quantityFormat = undefined, category) {
     if (!quantityFormat) {
       const habit = new BooleanHabit(name, description, category);
-      return habit
+      return habit;
     } else {
       const habit = new QuantitativeHabit(name, description, quantityFormat, category);
-      return habit
+      return habit;
     }
   },
 
   getAllHabits() {
-    const data = localStorage.getItem("all-habits");
-    return data ? JSON.parse(data) : undefined;
+    let data = localStorage.getItem("all-habits");
+    if (data) {
+      data = JSON.parse(data);
+      let allHabits = [];
+      for (const habit of data) {
+        // need to reinit habit and copy other dynamic properties
+        let h;
+        if ("quantityFormat" in habit) {
+          h = new QuantitativeHabit(habit.name, habit.description, habit.quantityFormat, habit.category);
+        } else {
+          h = new BooleanHabit(habit.name, habit.description, habit.category);
+        }
+        h.completionHistory = habit.completionHistory;
+        h.createdDate = habit.createdDate;
+        allHabits.push(h);
+      }
+      return allHabits;
+    } else {
+      return undefined;
+    }
   },
 
   setHabit(...habits) {
@@ -43,7 +61,18 @@ const Model = {
     for (let i = 0; i < allHabits.length; i++) {
       let habit = allHabits[i];
       if (habit.name === name) {
-        return habit;
+        // need to reinit habit and copy over all stuff
+        if ("quantityFormat" in habit) {
+          const h = new QuantitativeHabit(habit.name, habit.description, habit.quantityFormat, habit.category);
+          h.completionHistory = habit.completionHistory;
+          h.createdDate = habit.createdDate;
+          return h;
+        } else {
+          const h = new BooleanHabit(habit.name, habit.description, habit.category);
+          h.completionHistory = habit.completionHistory;
+          h.createdDate = habit.createdDate;
+          return h;
+        }
       }
     }
 

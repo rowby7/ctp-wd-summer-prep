@@ -26,7 +26,15 @@ class QuantitativeHabit {
   }
 
   changeQuantityOnDate(date, amount) {
-    this.completionHistory[date].quantity = amount
+    this.completionHistory[date].quantity = amount;
+  }
+
+  changeCompletionOnDate(date, status) {
+    this.completionHistory[date].completed = status;
+  }
+
+  changeNoteOnDate(date, newNote) {
+    this.completionHistory[date].notes = newNote;
   }
 
   getCurrentStreak() {
@@ -78,6 +86,14 @@ class BooleanHabit {
       this.completionHistory[dateStr] = { completed: false, notes: "" };
       date.setDate(date.getDate() + 1);
     }
+  }
+
+  changeCompletionOnDate(date, status) {
+    this.completionHistory[date].completed = status;
+  }
+
+  changeNoteOnDate(date, newNote) {
+    this.completionHistory[date].notes = newNote;
   }
 
   getCurrentStreak() {
