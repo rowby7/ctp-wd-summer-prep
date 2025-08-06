@@ -28,7 +28,7 @@ const Controller = {
       const dateData = View.habit.getClickedDateData(event.target)
       if (dateData) {
         const habit = Model.getHabit(dateData.habitName)
-        View.logModal.updateForm(dateData, habit)
+        View.logModal.updateFormView(dateData, habit)
         View.logModal.show()
       }
     });
