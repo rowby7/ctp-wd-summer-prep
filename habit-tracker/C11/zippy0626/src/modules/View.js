@@ -1,10 +1,12 @@
 import { format } from "date-fns";
+import { QuantitativeHabit } from "./habit.js";
 
 const View = {
   query(selector) {
     return document.querySelector(selector);
   },
 
+  // --- Overlay and Add Habit Btn ---
   onAddHabitBtnClick(callback) {
     View.query(".user-add-habit").addEventListener("click", callback);
   },
@@ -13,6 +15,7 @@ const View = {
     View.query(".modal-overlay").addEventListener("click", callback);
   },
 
+  // --- Habit Related Methods ---
   habit: {
     displayHabits(habits) {
       const habitContainer = View.query(".user-habits-container");
@@ -21,7 +24,7 @@ const View = {
 
       for (const habit of habits) {
         const habitCard = this.getHabitCard(habit);
-        habitContainer.appendChild(habitCard)
+        habitContainer.appendChild(habitCard);
       }
     },
 
@@ -37,13 +40,13 @@ const View = {
         month.classList.add("month");
 
         let firstDay = new Date(year, monthIndex, 1);
-        let lastDay = new Date(year, monthIndex + 1, 0); // 0th day of next month = last day of current month
+        let lastDay = new Date(year, monthIndex + 1, 0);
 
-        // Month name for each month
-        const monthName = document.createElement('p')
-        monthName.classList.add('month-name')
-        monthName.textContent = firstDay.toLocaleString('default', { month: 'short' })
-        monthsContainer.appendChild(monthName)
+        // Month name seperator for each month
+        const monthName = document.createElement("p");
+        monthName.classList.add("month-name");
+        monthName.textContent = firstDay.toLocaleString("default", { month: "short" });
+        monthsContainer.appendChild(monthName);
 
         // Loop through all days in the month && create boxes
         for (let day = new Date(firstDay); day <= lastDay; day.setDate(day.getDate() + 1)) {
@@ -52,9 +55,9 @@ const View = {
 
           // Highlight today's date
           if (format(day, "yyyy-MM-dd") === format(new Date(), "yyyy-MM-dd")) {
-            box.classList.add("todays-date")
-          };
-          
+            box.classList.add("todays-date");
+          }
+
           box.title = format(day, "MM-dd-yyyy");
           box.dataset.date = format(day, "yyyy-MM-dd");
           month.appendChild(box);
@@ -68,30 +71,131 @@ const View = {
 
       const habitHeading = document.createElement("h1");
       habitHeading.classList.add("habit-card-name");
-      habitHeading.dataset.habitName = habit.name;
       habitHeading.textContent = habit.name;
 
+      const habitDesc = document.createElement("p");
+      habitDesc.classList.add("habit-desc");
+      habitDesc.textContent = "Description: " + habit.description; // fix later
+
       habitCard.appendChild(habitHeading);
-      habitCard.appendChild(monthsContainer)
+      habitCard.appendChild(monthsContainer);
+      habitCard.appendChild(habitDesc);
+
+      // Attach dataset attributes
+      habitCard.dataset.habitName = habit.name;
+      habitCard.dataset.category = habit.category;
 
       return habitCard;
     },
+
+    onHabitCardClick(callback) {
+      View.query(".user-habits-container").addEventListener("click", callback);
+    },
+
+    getClickedDateData(target) {
+      if (target.classList.contains("date-box")) {
+        const data = {};
+        const card = target.closest(".habit-card");
+        data.displayDate = target.title;
+        data.accessDate = target.dataset.date;
+        data.habitName = card.dataset.habitName;
+        data.category = card.dataset.category;
+        return data;
+      } else {
+        return undefined;
+      }
+    },
   },
 
-  // group related methods in object properties
-  addHabitModal: {
+  // --- Log Modal Methods ---
+  logModal: {
     show() {
-      const addHabitModal = View.query(".add-habit-modal");
-      const overlay = View.query(".modal-overlay");
-      overlay.classList.remove("hidden");
-      addHabitModal.classList.remove("hidden");
+      View.query(".log-modal").classList.remove("hidden");
+      View.query(".modal-overlay").classList.remove("hidden");
     },
 
     hide() {
-      const addHabitModal = View.query(".add-habit-modal");
-      const overlay = View.query(".modal-overlay");
-      overlay.classList.add("hidden");
-      addHabitModal.classList.add("hidden");
+      View.query(".log-modal").classList.add("hidden");
+      View.query(".modal-overlay").classList.add("hidden");
+    },
+
+    clear() {
+      View.query("#log-habit-form").reset();
+    },
+
+    getFormData() {
+      const modal = View.query(".log-modal");
+      const data = new FormData(modal.querySelector("#log-habit-form"));
+      const obj = {};
+      for (const pair of data.entries()) {
+        // key, value
+        obj[pair[0]] = pair[1];
+      }
+      obj.accessDate = modal.dataset.accessDate;
+      obj.habitName = modal.dataset.habitName;
+      return obj;
+    },
+
+    updateForm(dateData, habit) {
+      // for getFormData
+      const modal = View.query(".log-modal");
+      modal.dataset.accessDate = dateData.accessDate;
+      modal.dataset.habitName = dateData.habitName;
+
+      const heading = View.query(".log-modal-heading");
+      heading.textContent = `Log for ${dateData.displayDate}`;
+
+      const habitName = View.query(".log-modal-habit-name");
+      habitName.textContent = `${dateData.habitName}`;
+      habitName.innerHTML += `<span class="category"> (${dateData.category})</span>`;
+
+      const completedYes = View.query("#log-completed");
+      const completedNo = View.query("#log-not-completed");
+
+      // Helper fn that gets the accessDate then returns the history obj from that date
+      let habitHistorydata = (date) => habit.completionHistory[date];
+
+      habitHistorydata(dateData.accessDate).completed === "true"
+        ? (completedYes.checked = true)
+        : (completedNo.checked = true);
+
+      const quantityInput = View.query("#log-quantity");
+      const quantityLabel = View.query("label[for='log-quantity']");
+
+      if (habit instanceof QuantitativeHabit) {
+        quantityInput.classList.remove("hidden");
+        quantityLabel.classList.remove("hidden");
+        quantityInput.value = habitHistorydata(dateData.accessDate).quantity;
+        let format = habit.quantityFormat[0].toUpperCase() + habit.quantityFormat.slice(1).toLowerCase();
+        quantityLabel.textContent = `${format} Completed:`;
+      } else {
+        quantityInput.classList.add("hidden");
+        quantityLabel.classList.add("hidden");
+      }
+
+      const notesInput = View.query("#log-notes");
+      notesInput.value = habitHistorydata(dateData.accessDate).notes;
+    },
+
+    onSubmitClick(callback) {
+      View.query("#log-habit-form").addEventListener("submit", callback);
+    },
+
+    onCancelClick(callback) {
+      View.query("div.log-form-buttons button[type='reset']").addEventListener("click", callback);
+    },
+  },
+
+  // --- Add Habit Modal Methods ---
+  addHabitModal: {
+    show() {
+      View.query(".add-habit-modal").classList.remove("hidden");
+      View.query(".modal-overlay").classList.remove("hidden");
+    },
+
+    hide() {
+      View.query(".add-habit-modal").classList.add("hidden");
+      View.query(".modal-overlay").classList.add("hidden");
     },
 
     clear() {
@@ -109,14 +213,14 @@ const View = {
     },
 
     getFormData() {
-      const d = new FormData(document.getElementById("add-habit-modal-form"));
-      const data = {};
-      for (const pair of d.entries()) {
+      const data = new FormData(View.query("#add-habit-modal-form"));
+      const obj = {};
+      for (const pair of data.entries()) {
         let key = pair[0];
         let val = pair[1];
-        data[key] = val;
+        obj[key] = val;
       }
-      return data;
+      return obj;
     },
 
     onSubmitClick(callback) {
