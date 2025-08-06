@@ -1,11 +1,10 @@
 import { format } from "date-fns";
 
 class QuantitativeHabit {
-  constructor(name, description, quantityFormat = undefined, quantity = 0, category = undefined) {
+  constructor(name, description, quantityFormat = undefined, category = undefined) {
     this.name = name;
     this.description = description;
     this.quantityFormat = quantityFormat;
-    this.quantity = quantity;
     this.category = category;
     this.createdDate = format(new Date(), "yyyy-MM-dd");
     this.completionHistory = {};
@@ -17,7 +16,7 @@ class QuantitativeHabit {
 
     while (date <= end) {
       const dateStr = format(date, "yyyy-MM-dd");
-      this.completionHistory[dateStr] = { completed: false, quantity: 0 };
+      this.completionHistory[dateStr] = { completed: false, quantity: 0, notes: "" };
       date.setDate(date.getDate() + 1);
     }
   }
@@ -26,12 +25,8 @@ class QuantitativeHabit {
     this.quantityFormat = newFormat;
   }
 
-  increaseQuantity(amount) {
-    this.quantity += amount;
-  }
-
-  resetQuantity() {
-    this.quantity = 0;
+  changeQuantityOnDate(date, amount) {
+    this.completionHistory[date].quantity = amount
   }
 
   getCurrentStreak() {
@@ -66,10 +61,9 @@ class QuantitativeHabit {
 }
 
 class BooleanHabit {
-  constructor(name, description, timesCompleted = 0, category = undefined) {
+  constructor(name, description, category = undefined) {
     this.name = name;
     this.description = description;
-    this.timesCompleted = timesCompleted;
     this.category = category;
     this.createdDate = format(new Date(), "yyyy-MM-dd");
     this.completionHistory = {};
@@ -81,17 +75,9 @@ class BooleanHabit {
 
     while (date <= end) {
       const dateStr = format(date, "yyyy-MM-dd");
-      this.completionHistory[dateStr] = { completed: false };
+      this.completionHistory[dateStr] = { completed: false, notes: "" };
       date.setDate(date.getDate() + 1);
     }
-  }
-
-  increaseTimesCompleted(amount) {
-    this.timesCompleted += amount;
-  }
-
-  resetTimesCompleted() {
-    this.timesCompleted = 0;
   }
 
   getCurrentStreak() {

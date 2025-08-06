@@ -7,21 +7,13 @@ const Model = {
     }
   },
 
-  createHabit(habitData) {
-    // Quantitative Habit
-    if (habitData["habitType"] === "number") {
-      const habit = new QuantitativeHabit(
-        habitData["habitName"],
-        habitData["habitDesc"],
-        habitData["habitQuantityFormat"],
-        0,
-        habitData["habitCategory"]
-      );
-      return habit;
+  createHabit(name, description, quantityFormat = undefined, category) {
+    if (!quantityFormat) {
+      const habit = new BooleanHabit(name, description, category);
+      return habit
     } else {
-      // Completion Habit
-      const habit = new BooleanHabit(habitData["habitName"], habitData["habitDesc"], 0, habitData["habitCategory"]);
-      return habit;
+      const habit = new QuantitativeHabit(name, description, quantityFormat, category);
+      return habit
     }
   },
 
@@ -31,11 +23,11 @@ const Model = {
   },
 
   setHabit(...habits) {
-    // update
     const allHabits = this.getAllHabits();
     for (const habit of habits) {
       let i = allHabits.findIndex((h) => h.name === habit.name);
       if (i !== -1) {
+        // replace if already existing
         allHabits[i] = habit;
       } else {
         allHabits.push(habit);
@@ -46,16 +38,10 @@ const Model = {
   },
 
   getHabit(name) {
-    // read
-    let data = localStorage.getItem("all-habits");
-    if (data) {
-      data = JSON.parse(data);
-    } else {
-      return undefined;
-    }
+    const allHabits = this.getAllHabits();
 
-    for (let i = 0; i < data.length; i++) {
-      let habit = data[i];
+    for (let i = 0; i < allHabits.length; i++) {
+      let habit = allHabits[i];
       if (habit.name === name) {
         return habit;
       }
@@ -74,6 +60,10 @@ const Model = {
     }
 
     localStorage.setItem("all-habits", JSON.stringify(allHabits));
+  },
+
+  deleteAllHabits() {
+    localStorage.setItem("all-habits", JSON.stringify([]));
   },
 };
 
