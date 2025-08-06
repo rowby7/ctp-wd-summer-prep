@@ -157,8 +157,13 @@ nav h1:active {
   border-radius: 1.5px;
 }
 
+.done {
+  background-color: lightgreen;
+}
+
+
 .todays-date {
-  border: 1px solid red;
+  outline: 1.5px solid gray;
 }
 
 /* modal box */

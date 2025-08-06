@@ -60,6 +60,11 @@ const View = {
 
           box.title = format(day, "MM-dd-yyyy");
           box.dataset.date = format(day, "yyyy-MM-dd");
+
+          // Make green if done on that day
+          let accessDate = format(day, "yyyy-MM-dd")
+          habit.completionHistory[accessDate].completed === "true" ? box.classList.add("done") : undefined
+
           month.appendChild(box);
         }
 
@@ -136,7 +141,7 @@ const View = {
       return obj;
     },
 
-    updateForm(dateData, habit) {
+    updateFormView(dateData, habit) {
       // for getFormData
       const modal = View.query(".log-modal");
       modal.dataset.accessDate = dateData.accessDate;
