@@ -70,10 +70,10 @@ const Controller = {
       if (habit instanceof QuantitativeHabit) {
         habit.changeQuantityOnDate(data.accessDate, data.quantity)
         habit.changeCompletionOnDate(data.accessDate, data.completed)
-        habit.changeNoteOnDate(data.accessDate, data.notes)
+        habit.changeNotesOnDate(data.accessDate, data.notes)
       } else {
         habit.changeCompletionOnDate(data.accessDate, data.completed)
-        habit.changeNoteOnDate(data.accessDate, data.notes)
+        habit.changeNotesOnDate(data.accessDate, data.notes)
       }
       Model.setHabit(habit)
 

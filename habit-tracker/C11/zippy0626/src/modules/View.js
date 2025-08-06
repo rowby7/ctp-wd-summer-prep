@@ -63,7 +63,7 @@ const View = {
 
           // Make green if done on that day
           let accessDate = format(day, "yyyy-MM-dd")
-          habit.completionHistory[accessDate].completed === "true" ? box.classList.add("done") : undefined
+          habit.getCompletionOnDate(accessDate) === true ? box.classList.add("done") : undefined
 
           month.appendChild(box);
         }
@@ -165,10 +165,7 @@ const View = {
       const completedYes = View.query("#log-completed");
       const completedNo = View.query("#log-not-completed");
 
-      // Helper fn that gets the accessDate then returns the history obj from that date
-      let habitHistorydata = (date) => habit.completionHistory[date];
-
-      habitHistorydata(dateData.accessDate).completed === true
+      habit.getCompletionOnDate(dateData.accessDate) === true
         ? (completedYes.checked = true)
         : (completedNo.checked = true);
 
@@ -178,8 +175,8 @@ const View = {
       if (habit instanceof QuantitativeHabit) {
         quantityInput.classList.remove("hidden");
         quantityLabel.classList.remove("hidden");
-        quantityInput.value = habitHistorydata(dateData.accessDate).quantity;
-        let format = habit.quantityFormat[0].toUpperCase() + habit.quantityFormat.slice(1).toLowerCase();
+        quantityInput.value = habit.getQuantityOnDate(dateData.accessDate);
+        let format = habit.getQuantityFormat()[0].toUpperCase() + habit.getQuantityFormat().slice(1).toLowerCase()
         quantityLabel.textContent = `${format} Completed:`;
       } else {
         quantityInput.classList.add("hidden");
@@ -187,7 +184,7 @@ const View = {
       }
 
       const notesInput = View.query("#log-notes");
-      notesInput.value = habitHistorydata(dateData.accessDate).notes;
+      notesInput.value = habit.getNotesOnDate(dateData.accessDate);
     },
 
     onSubmitClick(callback) {
