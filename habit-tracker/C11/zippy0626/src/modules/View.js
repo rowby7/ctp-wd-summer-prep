@@ -133,8 +133,16 @@ const View = {
       const data = new FormData(modal.querySelector("#log-habit-form"));
       const obj = {};
       for (const pair of data.entries()) {
-        // key, value
-        obj[pair[0]] = pair[1];
+        let key = pair[0]
+        let value = pair[1]
+        // Convert str data to correct data types
+        if (key === "completed") {
+          value === "true" ? value = true : value = false
+        }
+        if (key === "quantity") {
+          value instanceof String ? value = Number(value) : value = Number(value)
+        }
+        obj[key] = value
       }
       obj.accessDate = modal.dataset.accessDate;
       obj.habitName = modal.dataset.habitName;
