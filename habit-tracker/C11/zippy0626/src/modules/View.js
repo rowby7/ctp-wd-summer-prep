@@ -168,7 +168,7 @@ const View = {
       // Helper fn that gets the accessDate then returns the history obj from that date
       let habitHistorydata = (date) => habit.completionHistory[date];
 
-      habitHistorydata(dateData.accessDate).completed === "true"
+      habitHistorydata(dateData.accessDate).completed === true
         ? (completedYes.checked = true)
         : (completedNo.checked = true);
 
