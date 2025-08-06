@@ -1,29 +1,97 @@
+import { useState } from "react";
 import { useHabit } from "../contexts/HabitContext";
 import Button from "./Button";
 
 function HabitItem({ habit }) {
-  const { handleDeleteHabit, handleCompleteHabit } = useHabit();
+  const { handleDeleteHabit, handleCompleteHabit, handleEditHabit } =
+    useHabit();
+  const [isEditModeEnabled, setIsEditModeEnabled] = useState(false);
+  const [name, setName] = useState("");
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (habit.name === name) {
+      alert("Please don't enter the same name.");
+      return;
+    }
+    const changedHabit = { ...habit, name: name };
+    handleEditHabit(changedHabit);
+    setIsEditModeEnabled((currentEditMode) => !currentEditMode);
+  }
   return (
     <div className="habit-item">
-      <h2 className="habit-info">Habit Name: {habit.name}</h2>
+      {!isEditModeEnabled ? (
+        <>
+          <h1 className="habit-info" id="habit-name">
+            {habit.name}
+          </h1>
+          <h3 className="habit-info">
+            {habit.completedToday
+              ? "  ✅ Completed Today"
+              : "❗️Not Completed Today"}{" "}
+          </h3>
+          <Button onClick={() => handleCompleteHabit(habit.id)}>
+            Complete Habit
+          </Button>
+          <div className="habit-info-wrapper">
+            <div className="habit-numeric-info">
+              <h2 className="habit-section-heading">Progress</h2>
+              <h3 className="habit-info">Streak: {habit.streak}</h3>
+            </div>
+            <div className="date-info">
+              <h2 className="habit-section-heading">History</h2>
+              <h3 className="habit-info" id="date-created">
+                Date Created: {habit.createdAt}
+              </h3>
+              <div className="completion-dates">
+                <ul>
+                  {habit.completionDates.map((date) => (
+                    <li key={date + Math.random()} className="habit-info">
+                      Completed on: {date}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
 
-      <h3 className="habit-info">Date Created: {habit.createdAt}</h3>
-      <h3 className="habit-info">Streak: {habit.streak}</h3>
-      <h3 className="habit-info">
-        Daily Completion Status:{" "}
-        {habit.completedToday ? "completed" : "not completed"}{" "}
-      </h3>
-      <div className="completion-dates">
-        {habit.completionDates.map((date) => (
-          <h2 key={date} className="habit-info">
-            {date}
-          </h2>
-        ))}
-      </div>
-      <Button onClick={() => handleCompleteHabit(habit.id)}>
-        Complete Habit
-      </Button>
-      <Button onClick={() => handleDeleteHabit(habit.id)}>Delete Habit</Button>
+          <Button
+            onClick={() =>
+              setIsEditModeEnabled((currentEditMode) => !currentEditMode)
+            }
+            className="edit-btn"
+          >
+            Edit Mode
+          </Button>
+          <Button
+            onClick={() => handleDeleteHabit(habit.id)}
+            className="delete-btn"
+          >
+            Delete Habit
+          </Button>
+        </>
+      ) : (
+        <>
+          <h1>Currently editing: {habit.name}</h1>
+          <Button
+            onClick={() =>
+              setIsEditModeEnabled((currentEditMode) => !currentEditMode)
+            }
+          >
+            Go Back
+          </Button>
+          <form className="form edit-form" onSubmit={handleSubmit}>
+            <label for="name">New Habit Name: </label>
+            <input
+              type="text"
+              placeholder="Enter new habit name..."
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              id="name"
+            />
+            <Button type="submit">Save Changes</Button>
+          </form>
+        </>
+      )}
     </div>
   );
 }

@@ -1,17 +1,22 @@
 import { createContext, useContext, useEffect } from "react";
 import { useLocalStorageState } from "../hooks/useLocalStorageState";
+import { parse, differenceInCalendarDays, format } from "date-fns";
 
 const HabitContext = createContext();
+
+/* const FAKE_DATE = new Date("2025-08-07T00:00:00");
+const todaysDate = format(FAKE_DATE, "MM/dd/yyyy"); */
+
+const todaysDate = format(new Date(), "MM/dd/yyyy");
 
 function HabitProvider({ children }) {
   const [habits, setHabits] = useLocalStorageState([], "habits");
   const [userStats, setUserStats] = useLocalStorageState(
-    { streak: 1 },
+    { totalHabits: 0, totalPoints: 0, activeStreaks: 0, longestStreak: 0 },
     "user-stats"
   );
 
   useEffect(() => {
-    const todaysDate = formatDate(new Date());
     console.log("Checking habits on load. Today's date:", todaysDate);
 
     setHabits((habits) =>
@@ -25,11 +30,42 @@ function HabitProvider({ children }) {
 
   function handleAddHabit(newHabit) {
     setHabits((habits) => [...habits, newHabit]);
+    setUserStats({
+      ...userStats,
+      totalPoints:
+        userStats.totalPoints + checkDifficultyValue(newHabit.difficulty),
+      /* activeStreaks: userStats.activeStreaks + 1, */
+      longestStreak:
+        newHabit.streak > userStats.longestStreak
+          ? newHabit.streak
+          : userStats.longestStreak,
+      totalHabits: userStats.totalHabits + 1,
+    });
+    alert("Habit Successfully Created.");
+  }
+
+  function handleEditHabit(changedHabit) {
+    setHabits((habits) =>
+      habits.map((habit) =>
+        habit.id === changedHabit.id ? changedHabit : habit
+      )
+    );
+    alert("Habit Successfully Changed");
   }
 
   function handleDeleteHabit(id) {
     if (!habits) return;
+    const habit = habits.find((habit) => habit.id === id);
     setHabits((habits) => habits.filter((habit) => habit.id !== id));
+
+    setUserStats((userStats) => ({
+      ...userStats,
+      activeStreaks:
+        habit.streak > 0
+          ? userStats.activeStreaks - 1
+          : userStats.activeStreaks,
+    }));
+    alert("Habit Successfully Deleted");
   }
 
   function handleCompleteHabit(id) {
@@ -41,30 +77,51 @@ function HabitProvider({ children }) {
         return habits;
       }
 
+      const lastDateCompleted =
+        habit.completionDates[habit.completionDates.length - 1];
+      const exactlyOneDayApart =
+        Math.abs(
+          differenceInCalendarDays(
+            parse(todaysDate, "MM/dd/yyyy", new Date()),
+            parse(lastDateCompleted, "MM/dd/yyyy", new Date())
+          )
+        ) === 1;
+
+      setUserStats({
+        ...userStats,
+        totalPoints:
+          userStats.totalPoints + checkDifficultyValue(habit.difficulty),
+        longestStreak:
+          habit.streak + 1 > userStats.longestStreak && exactlyOneDayApart
+            ? habit.streak + 1
+            : userStats.longestStreak,
+        activeStreaks:
+          exactlyOneDayApart && habit.streak === 0
+            ? userStats.activeStreaks + 1
+            : userStats.activeStreaks,
+      });
+
       return habits.map((habit) =>
         habit.id === id
           ? {
               ...habit,
-              streak: habit.streak + 1,
+              streak: exactlyOneDayApart ? habit.streak + 1 : 0,
               completedToday: true,
               completionDates: [
                 ...habit.completionDates,
-                formatDate(new Date()),
+                // change to todaysDate
+                todaysDate,
               ],
             }
           : habit
       );
     });
   }
-
-  function formatDate(currentDateAndTime) {
-    return `${String(currentDateAndTime.getMonth() + 1).padStart(
-      2,
-      "0"
-    )}/${String(currentDateAndTime.getDate()).padStart(
-      2,
-      "0"
-    )}/${currentDateAndTime.getFullYear()}`;
+  function checkDifficultyValue(difficulty) {
+    if (difficulty === "Easy") return 1;
+    if (difficulty === "Medium") return 2;
+    if (difficulty === "Hard") return 3;
+    return 0;
   }
   return (
     <HabitContext.Provider
@@ -74,9 +131,10 @@ function HabitProvider({ children }) {
         userStats,
 
         handleAddHabit,
+        handleEditHabit,
         handleDeleteHabit,
         handleCompleteHabit,
-        formatDate,
+        checkDifficultyValue,
       }}
     >
       {children}

@@ -6,9 +6,17 @@ function UserStats() {
     <div className="user-stats">
       {" "}
       <h1 className="section-header">User Stats</h1>
-      <h2 className="user-info">
-        User Streak:{" "}
-        {userStats.streak ? userStats.streak : "User streak not available"}
+      <h2 className="user-info" id="total-points">
+        Total Points Accumulated: {userStats.totalPoints}
+      </h2>
+      <h2 className="user-info" id="total-habits">
+        Total Habits: {userStats.totalHabits}
+      </h2>
+      <h2 className="user-info" id="longest-streak">
+        Longest Streak: {userStats.longestStreak}
+      </h2>
+      <h2 className="user-info" id="active-streaks">
+        Active Streaks: {userStats.activeStreaks}
       </h2>
     </div>
   );
