@@ -49,13 +49,28 @@ const presentations: Record<string, Record<string, PresentationConfig>> = {
       title: 'HTML Basics',
       component: lazy(() => import('./js-intro-sections/html-basics.mdx')),
       audio: {
-        url: 'https://example.com/audio/html-basics.mp3',
-        slideTimings: [0, 22, 53, 78, 111, 151, 199, 261, 305, 333, 359, 373, 376, 383, 395]
+        url: 'https://ctp-presentation-media.s3.us-east-2.amazonaws.com/html-basics.mp3',
+        slideTimings: [0, 38, 120, 210, 292, 356, 429, 492, 514],
+        transcript: 'https://ctp-presentation-media.s3.us-east-2.amazonaws.com/html-basics.vtt'
       }
     },
-    'css-fundamentals': { title: 'CSS Fundamentals', component: lazy(() => import('./js-intro-sections/css-fundamentals.mdx')) },
+    'css-fundamentals': { title: 'CSS Fundamentals', component: lazy(() => import('./js-intro-sections/css-fundamentals.mdx')),
+      audio: {
+        url: 'https://ctp-presentation-media.s3.us-east-2.amazonaws.com/css-fundementals.mp3',
+        slideTimings: [0, 32, 120, 191, 273, 350, 423, 508, 562, 616, 672, 726, 780, 836, 852, 869, 952],
+        transcript: 'https://ctp-presentation-media.s3.us-east-2.amazonaws.com/css-fundementals.vtt'
+      }
+    },
     'introduction': { title: 'Introduction to JavaScript', component: lazy(() => import('./js-intro-sections/introduction.mdx')) },
-    'variables-and-types': { title: 'Variables and Types', component: lazy(() => import('./js-intro-sections/variables-and-types.mdx')) },
+    'variables-and-types': {
+      title: 'Variables and Types',
+      component: lazy(() => import('./js-intro-sections/variables-and-types.mdx')),
+      audio: {
+        url: 'https://ctp-presentation-media.s3.us-east-2.amazonaws.com/variables-and-types.mp4',
+        slideTimings: [0, 23, 73, 145, 211, 274, 358, 380, 456, 522, 620, 720, 814, 910, 980, 1066, 1124, 1162, 1236, 1306, 1376, 1448],
+        transcript: 'https://ctp-presentation-media.s3.us-east-2.amazonaws.com/variables-and-types_otter_ai.vtt'
+      }
+    },
     'functions': { title: 'Functions', component: lazy(() => import('./js-intro-sections/functions.mdx')) },
     'control-flow': { title: 'Control Flow', component: lazy(() => import('./js-intro-sections/control-flow.mdx')) },
     'objects-and-arrays': { title: 'Objects and Arrays', component: lazy(() => import('./js-intro-sections/objects-and-arrays.mdx')) },
