@@ -120,7 +120,7 @@ nav h1:active {
 /* habit card */
 .habit-card {
   padding: 1.5rem;
-  min-height: 300px;
+  min-height: 250px;
   border-radius: 8px;
   background-color: lightblue;
 }
@@ -138,8 +138,8 @@ nav h1:active {
 
 .month {
   display: grid;
-  grid-template-columns: repeat(5, 13px);
-  grid-template-rows: repeat(7, 13px);
+  grid-template-columns: repeat(5, 12.5px);
+  grid-template-rows: repeat(7, 12.5px);
   gap: 2px;
   grid-auto-flow: column;
   margin-right: 5px;
@@ -160,7 +160,6 @@ nav h1:active {
 .todays-date {
   border: 1px solid red;
 }
-
 
 /* modal box */
 .add-habit-modal {
@@ -191,7 +190,7 @@ nav h1:active {
   z-index: 1;
 }
 
-/* actual modal form */
+/* add habit form contents */
 #add-habit-modal-form div {
   user-select: none;
   display: flex;
@@ -222,4 +221,59 @@ nav h1:active {
 
 .add-habit-modal-form-buttons {
   margin-left: auto;
+}
+
+.log-modal {
+  padding: 0.8rem;
+  border-radius: 8px;
+  z-index: 2;
+  width: 100%;
+  max-width: 300px;
+  background-color: pink;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  gap: 4px;
+}
+
+.log-modal form {
+  gap: 4px;
+}
+
+.log-modal div{
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+.log-modal #log-quantity {
+  width: 75px;
+}
+
+.log-completion-status label, .log-completion-status input[type="radio"] {
+  cursor: pointer;
+}
+
+
+.log-modal .log-notes {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 0;
+}
+
+.log-modal #log-notes {
+  resize: none;
+  width: 100%;
+  height: 150px;
+  padding: .5rem;
+}
+
+.log-modal .log-form-buttons {
+  margin-left: auto;
+}
+
+.log-modal button {
+  cursor: pointer;
 }

@@ -96,6 +96,37 @@
           </section>
         </form>
       </section>
+
+      <section class="log-modal flex-col hidden">
+        <h1 class="log-modal-heading">Log For MM-dd-YYYY</h1>
+        <h3 class="log-modal-habit-name">Habit Name</h3>
+        <form class="log-habit-form flex-col" id="log-habit-form">
+          <div class="log-completion-status">
+            <p>Completed?</p>
+            <span>
+              <label for="log-completed">Yes</label>
+              <input type="radio" name="completed" id="log-completed" value="true" />
+              <label for="log-not-completed">No</label>
+              <input type="radio" name="completed" id="log-not-completed" value="false"/>
+            </span>
+          </div>
+
+          <div class="log-quantity">
+            <label for="log-quantity">(FORMAT) Completed:</label>
+            <input type="number" name="quantity" id="log-quantity" min="0" step=".01"/>
+          </div>
+
+          <div class="log-notes">
+            <label for="log-notes">Notes:</label>
+            <textarea name="notes" id="log-notes" class="nunito-font" placeholder="No Notes"></textarea>
+          </div>
+
+          <div class="log-form-buttons">
+            <button type="submit">Done</button>
+            <button type="reset">Cancel</button>
+          </div>
+        </form>
+      </section>
     </div>
     <script type="module" src="/src/main.js"></script>
   </body>
