@@ -1,5 +1,6 @@
 import { format } from "date-fns";
 import { QuantitativeHabit } from "./habit.js";
+import imgUrl from '../../public/edit-icon.svg?url'
 
 const View = {
   query(selector) {
@@ -73,6 +74,7 @@ const View = {
 
       const habitCard = document.createElement("article");
       habitCard.classList.add("habit-card");
+      habitCard.classList.add("flex-col");
 
       const habitHeading = document.createElement("h1");
       habitHeading.classList.add("habit-card-name");
@@ -82,9 +84,14 @@ const View = {
       habitDesc.classList.add("habit-desc");
       habitDesc.textContent = "Description: " + habit.description; // fix later
 
+      const habitEditIcon = document.createElement('img')
+      habitEditIcon.classList.add('edit-icon')
+      habitEditIcon.src = imgUrl
+
       habitCard.appendChild(habitHeading);
       habitCard.appendChild(monthsContainer);
       habitCard.appendChild(habitDesc);
+      habitCard.appendChild(habitEditIcon)
 
       // Attach dataset attributes
       habitCard.dataset.habitName = habit.name;
@@ -246,6 +253,33 @@ const View = {
       View.query("#number").addEventListener("click", callback);
     },
   },
+
+  // --- Edit Habit Modal Methods ---
+  editHabitModal: {
+    show() {
+      
+    },
+
+    hide() {
+      
+    },
+
+    clear() {
+
+    },
+
+    getFormData() {
+
+    },
+
+    onSubmitClick() {
+      
+    },
+
+    onCancelClick() {
+      
+    },
+  }
 };
 
 export default View;

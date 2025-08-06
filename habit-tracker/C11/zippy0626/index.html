@@ -107,13 +107,13 @@
               <label for="log-completed">Yes</label>
               <input type="radio" name="completed" id="log-completed" value="true" />
               <label for="log-not-completed">No</label>
-              <input type="radio" name="completed" id="log-not-completed" value="false"/>
+              <input type="radio" name="completed" id="log-not-completed" value="false" />
             </span>
           </div>
 
           <div class="log-quantity">
             <label for="log-quantity">(FORMAT) Completed:</label>
-            <input type="number" name="quantity" id="log-quantity" min="0" step=".01"/>
+            <input type="number" name="quantity" id="log-quantity" min="0" step=".01" />
           </div>
 
           <div class="log-notes">
@@ -124,6 +124,34 @@
           <div class="log-form-buttons">
             <button type="submit">Done</button>
             <button type="reset">Cancel</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="edit-habit-modal flex-col hidden">
+        <h1 class="edit-modal-heading">Edit HABIT</h1>
+        <form class="edit-habit-form flex-col">
+          <div class="edit-name">
+            <label for="edit-name">Edit Habit Name:</label>
+            <input type="text" name="editedName" id="edit-name" placeholder="Habit Name" />
+          </div>
+          <div class="edit-format">
+            <label for="edit-format">Edit Format:</label>
+            <input type="text" name="editedFormat" id="edit-format" placeholder="Habit Format" />
+            <span class="form-note">Note: Will not convert past data!</span>
+          </div>
+          <div class="edit-category">
+            <label for="edit-category">Edit Category:</label>
+            <input type="text" name="editedCategory" id="edit-category" placeholder="Habit Category" />
+          </div>
+          <div class="edit-desc">
+            <label for="edit-desc">Edit Description:</label>
+            <textarea name="editedDesc" id="edit-desc" class="nunito-font" placeholder="No Description"></textarea>
+          </div>
+          <div class="edit-form-btns">
+            <button type="submit">Edit Habit</button>
+            <button type="reset">Cancel</button>
+            <button type="button">Delete Habit</button>
           </div>
         </form>
       </section>
