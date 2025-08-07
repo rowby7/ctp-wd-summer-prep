@@ -44,7 +44,7 @@ function HabitItem({ habit }) {
           <h3 className="habit-info">
             {habit.completedToday
               ? "  ✅ Completed Today"
-              : "❗️Not Completed Today"}{" "}
+              : "❗️ Not Completed Today"}{" "}
           </h3>
           <Button onClick={() => handleCompleteHabit(habit.id)}>
             Complete Habit
