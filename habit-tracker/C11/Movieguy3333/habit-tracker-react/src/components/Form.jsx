@@ -41,7 +41,7 @@ function Form() {
           onChange={(e) => setName(e.target.value)}
           id="name"
         />
-        <label for="difficulty">Difficulty:</label>
+        <label for="difficulty"> Difficulty:</label>
         <select
           value={chosenDifficulty}
           onChange={(e) => setChosenDifficulty(e.target.value)}
