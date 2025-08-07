@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useHabit } from "../contexts/HabitContext";
 import Button from "./Button";
 
@@ -7,6 +7,9 @@ function HabitItem({ habit }) {
     useHabit();
   const [isEditModeEnabled, setIsEditModeEnabled] = useState(false);
   const [name, setName] = useState("");
+
+  const topRef = useRef(null);
+
   function handleSubmit(e) {
     e.preventDefault();
     if (habit.name === name) {
@@ -17,13 +20,27 @@ function HabitItem({ habit }) {
     handleEditHabit(changedHabit);
     setIsEditModeEnabled((currentEditMode) => !currentEditMode);
   }
+
+  function handleToggleEditMode() {
+    setIsEditModeEnabled((currentEditMode) => {
+      const newMode = !currentEditMode;
+      if (!currentEditMode && topRef.current) {
+        // Scroll to top when entering edit mode
+        topRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+      return newMode;
+    });
+  }
+
   return (
-    <div className="habit-item">
+    <div className="habit-item" ref={topRef}>
       {!isEditModeEnabled ? (
         <>
           <h1 className="habit-info" id="habit-name">
             {habit.name}
           </h1>
+          <h2 className="habit-info">Difficulty: {habit.difficulty}</h2>
+
           <h3 className="habit-info">
             {habit.completedToday
               ? "  ✅ Completed Today"
@@ -54,12 +71,7 @@ function HabitItem({ habit }) {
             </div>
           </div>
 
-          <Button
-            onClick={() =>
-              setIsEditModeEnabled((currentEditMode) => !currentEditMode)
-            }
-            className="edit-btn"
-          >
+          <Button onClick={handleToggleEditMode} className="edit-btn">
             Edit Mode
           </Button>
           <Button
@@ -72,15 +84,9 @@ function HabitItem({ habit }) {
       ) : (
         <>
           <h1>Currently editing: {habit.name}</h1>
-          <Button
-            onClick={() =>
-              setIsEditModeEnabled((currentEditMode) => !currentEditMode)
-            }
-          >
-            Go Back
-          </Button>
+          <Button onClick={handleToggleEditMode}>Go Back</Button>
           <form className="form edit-form" onSubmit={handleSubmit}>
-            <label for="name">New Habit Name: </label>
+            <label htmlFor="name">New Habit Name: </label>
             <input
               type="text"
               placeholder="Enter new habit name..."

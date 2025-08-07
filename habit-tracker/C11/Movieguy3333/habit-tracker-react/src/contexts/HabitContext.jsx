@@ -98,6 +98,8 @@ function HabitProvider({ children }) {
         activeStreaks:
           exactlyOneDayApart && habit.streak === 0
             ? userStats.activeStreaks + 1
+            : !exactlyOneDayApart && habit.streak >= 1
+            ? userStats.activeStreaks - 1
             : userStats.activeStreaks,
       });
 
