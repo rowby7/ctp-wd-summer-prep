@@ -1,34 +1,71 @@
 const form = document.getElementById('habit_form')
-const habits = []
+let habits = []
+
+document.addEventListener('DOMContentLoaded', () => {
+  
+  //get saved data with key habits
+  const savedHabits = localStorage.getItem('habits')
+
+  //check if savedHabits got anything
+  if (savedHabits !== null){
+    habits = JSON.parse(savedHabits)
+
+  } else {
+    //if did not get anything return an empty array
+    habits = []
+  }
+
+  //call renderhabits to display saved habits
+  renderHabits(habits)
+})
 
 form.addEventListener('submit', (event) => {
   event.preventDefault()
   const data = new FormData(event.target)
+  const habitName = data.get('habit_name')
+  const targetStreak = data.get('target_streak')
 
   const habit = {
-    habitName: data.get('habit_name'),
-    targetStreak: data.get('target_streak'),
-    completed: false
+    habitName : habitName,
+    targetStreak : targetStreak,
+    complete : false,
+    streak : 0
   }
-
   habits.push(habit)
-  console.log(JSON.stringify(habits))
+  localStorage.setItem('habits', JSON.stringify(habits))
   renderHabits(habits)
+  event.target.reset()
+
 })
 
-const renderHabits = (habits) => {
+function renderHabits(habits) {
   const habitList = document.getElementById('habit_list')
-  habitList.innerHTML = habits.map((habit, index) =>
-    `<li>
-      ${habit.habitName}; ${habit.targetStreak}
-      <button onclick="toggleHabit(${index})">
-        ${habit.completed ? 'Mark Incomplete' : 'Mark Complete'}
-      </button>
+
+  const htmlStrings = habits.map((habit, index) => {
+    return `<li>
+    ${habit.habitName} - Target: ${habit.targetStreak}
+    <button onclick="toggleHabit(${index})">${habit.complete ? 'Mark Incomplete' : 'Mark Complete'}</button>
+    <button onclick="deleteHabit(${index})">Delete</button>
     </li>`
-  ).join('\n')
+  })
+  const combinedHTML = htmlStrings.join('')
+  habitList.innerHTML = combinedHTML
 }
 
-window.toggleHabit = (index) => {
-  habits[index].completed = !habits[index].completed
+
+
+function toggleHabit(index) {
+const habit = habits[index]
+habit.complete = !habit.complete
+localStorage.setItem('habits', JSON.stringify(habits))
+renderHabits(habits)
+}
+
+function deleteHabit(index){
+  habits.splice(index, 1)
+  localStorage.setItem('habits', JSON.stringify(habits))
   renderHabits(habits)
 }
+
+window.toggleHabit = toggleHabit
+window.deleteHabit = deleteHabit

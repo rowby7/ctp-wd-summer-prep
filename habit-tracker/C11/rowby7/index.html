@@ -1,26 +1,40 @@
+<!-- Tells what type of document -->
 <!DOCTYPE html>
+
+<!-- Tells that it is in english-->
 <html lang="en">
+
+<!-- Information about the page-->
 <head>
+
+  <!--How to display text and how to handle mobile devices -->
   <meta charset="UTF-8">
-  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vite + React + TS</title>
-</head>
-<body>
-  <div id="root">
-<form id="habit_form">
-  <label for="habit_name">Habit Name:</label>
-  <input id="habit_name" name="habit_name" type="text" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
 
-  <label for="target_streak">Target Streak:</label>
-  <input id="target_streak" name="target_streak" type="number" min="0" max="10" />
+<!--How to display text and how to handle mobile devices -->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Vite + React + TS</title>
 
-  <button type="submit" id="submit_habit">Submit</button>
-</form>
-<ul id="habit_list"></ul>
+<!--the visible part of the webpage-->
+        </head>
+        <body>
 
-  </ul>
-  </div>
-  <script type="module" src="/src/main.js"></script>
-</body>
-</html>
+<!--Container box from template -->
+          <div id="root">
+          <form id="habit_form">
+            <label for="habit_name">Habit Name:</label>
+              <input id="habit_name" name="habit_name" type="text" />
+              
+                <label for="target_streak">Target Streak:</label>
+                  <input id="target_streak" name="target_streak" type="number" min="0" max="30" />
+                  
+                    <button type="submit" id="submit_habit">Submit</button>
+                    </form>
+                    <ul id="habit_list"></ul>
+                    
+                        </div>
+                        <!--tells browser to laod the js file -->
+                          <script type="module" src="/src/main.js"></script>
+                          </body>
+                          </html>
+                          >
