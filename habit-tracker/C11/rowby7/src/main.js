@@ -29,6 +29,7 @@ form.addEventListener('submit', (event) => {
     habitName : habitName,
     targetStreak : targetStreak,
     complete : false,
+    isEditing: false,
     streak : 0
   }
   habits.push(habit)
@@ -43,9 +44,12 @@ function renderHabits(habits) {
 
   const htmlStrings = habits.map((habit, index) => {
     return `<li>
-    ${habit.habitName} - Target: ${habit.targetStreak}
+   ${habit.isEditing ? `<input type="text" value="${habit.habitName}" id="habitName-${index}">` : habit.habitName} -
+    ${habit.isEditing ? `<input type="number" value="${habit.targetStreak}" id="targetStreak-${index}">` : habit.targetStreak}
+
     <button onclick="toggleHabit(${index})">${habit.complete ? 'Mark Incomplete' : 'Mark Complete'}</button>
     <button onclick="deleteHabit(${index})">Delete</button>
+    <button onclick="editHabit(${index})">${habit.isEditing ? 'Done' : 'Edit'}</button>
     </li>`
   })
   const combinedHTML = htmlStrings.join('')
@@ -53,6 +57,18 @@ function renderHabits(habits) {
 }
 
 
+function editHabit(index) {
+  if(habits[index].isEditing){
+    const newName = document.getElementById(`habitName-${index}`).value
+    const newStreak = document.getElementById(`targetStreak-${index}`).value
+
+    habits[index].habitName = newName
+    habits[index].targetStreak = newStreak
+  }
+  habits[index].isEditing = !habits[index].isEditing
+  localStorage.setItem('habits', JSON.stringify(habits))
+  renderHabits(habits)
+}
 
 function toggleHabit(index) {
 const habit = habits[index]
@@ -69,3 +85,4 @@ function deleteHabit(index){
 
 window.toggleHabit = toggleHabit
 window.deleteHabit = deleteHabit
+window.editHabit = editHabit
