@@ -21,25 +21,7 @@ class QuantitativeHabit {
     }
   }
 
-  getQuantityFormat() {
-    return this.quantityFormat;
-  }
-
-  changeQuantityFormat(newFormat) {
-    this.quantityFormat = newFormat;
-  }
-
-  changeQuantityOnDate(date, amount) {
-    this.completionHistory[date].quantity = amount;
-  }
-
-  changeCompletionOnDate(date, status) {
-    this.completionHistory[date].completed = status;
-  }
-
-  changeNotesOnDate(date, newNote) {
-    this.completionHistory[date].notes = newNote;
-  }
+  // --- Getters ---
 
   getQuantityOnDate(date) {
     return this.completionHistory[date].quantity;
@@ -82,6 +64,28 @@ class QuantitativeHabit {
     }
     return longestStreak;
   }
+
+  getQuantityFormat() {
+    return this.quantityFormat;
+  }
+
+  // --- Setters ---
+
+  changeQuantityFormat(newFormat) {
+    this.quantityFormat = newFormat;
+  }
+
+  changeQuantityOnDate(date, amount) {
+    this.completionHistory[date].quantity = amount;
+  }
+
+  changeCompletionOnDate(date, status) {
+    this.completionHistory[date].completed = status;
+  }
+
+  changeNotesOnDate(date, newNote) {
+    this.completionHistory[date].notes = newNote;
+  }
 }
 
 class BooleanHabit {
@@ -103,14 +107,7 @@ class BooleanHabit {
       date.setDate(date.getDate() + 1);
     }
   }
-
-  changeCompletionOnDate(date, status) {
-    this.completionHistory[date].completed = status;
-  }
-
-  changeNotesOnDate(date, newNote) {
-    this.completionHistory[date].notes = newNote;
-  }
+  // --- Getters ---
 
   getCompletionOnDate(date) {
     return this.completionHistory[date].completed;
@@ -148,6 +145,16 @@ class BooleanHabit {
       }
     }
     return longestStreak;
+  }
+
+  // --- Setters ---
+
+  changeCompletionOnDate(date, status) {
+    this.completionHistory[date].completed = status;
+  }
+
+  changeNotesOnDate(date, newNote) {
+    this.completionHistory[date].notes = newNote;
   }
 }
 
