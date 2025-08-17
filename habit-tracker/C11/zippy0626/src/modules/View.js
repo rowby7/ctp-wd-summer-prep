@@ -21,11 +21,14 @@ const View = {
     displayHabits(habits) {
       const habitContainer = View.query(".user-habits-container");
       habitContainer.innerHTML = "";
-      // remember to handle no habits found later
 
-      for (const habit of habits) {
-        const habitCard = this.getHabitCard(habit);
-        habitContainer.appendChild(habitCard);
+      if (habits) {
+        for (const habit of habits) {
+          const habitCard = this.getHabitCard(habit);
+          habitContainer.appendChild(habitCard);
+        }
+      } else {
+        // remember to handle no habits found later
       }
     },
 
@@ -271,19 +274,41 @@ const View = {
     },
 
     updateFormView(habit) {
-      View.query(".edit-modal-heading").value = habit.name || ""
-      View.query("#edit-name").textContent = `Edit ${habit.name}`
-      View.query("#edit-format")
-      View.query("#edit-category")
-      View.query("#edit-desc")
+      View.query(".edit-habit-form").dataset.oldHabitName = habit.name;
+      View.query(".edit-modal-heading").textContent = `Edit "${habit.name}"`;
+      View.query("#edit-name").value = habit.name || "";
+
+      // Handle Boolean Habits
+      !(habit instanceof QuantitativeHabit)
+        ? View.query(".edit-format").classList.add("hidden")
+        : View.query(".edit-format").classList.remove("hidden");
+
+      View.query("#edit-format").value = habit.quantityFormat || "";
+      View.query("#edit-category").value = habit.category || "";
+      View.query("#edit-desc").value = habit.description || "";
     },
 
-    getFormData() {},
+    getFormData() {
+      const entries = new FormData(View.query(".edit-habit-form"));
+      const data = {};
 
-    onSubmitClick(callback) {},
+      for (const pair of entries) {
+        let key = pair[0];
+        let value = pair[1];
+        data[key] = value;
+      }
+
+      data.oldHabitName = View.query(".edit-habit-form").dataset.oldHabitName;
+
+      return data;
+    },
+
+    onSubmitClick(callback) {
+      View.query(".edit-habit-form").addEventListener("submit", callback);
+    },
 
     onCancelClick(callback) {
-      View.query(".edit-form-btns button[type='reset']").addEventListener('click', callback)
+      View.query(".edit-form-btns button[type='reset']").addEventListener("click", callback);
     },
   },
 };

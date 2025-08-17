@@ -98,7 +98,48 @@ const Controller = {
     });
 
     // --- Edit Habit Modal Event Listeners ---
-    View.editHabitModal.onCancelClick(View.editHabitModal.hide);
+    View.editHabitModal.onSubmitClick((event) => {
+      event.preventDefault();
+      const data = View.editHabitModal.getFormData();
+      const habit = Model.getHabit(data.oldHabitName);
+
+      // Handle habit name changes
+      if (data.editedName !== data.oldHabitName) {
+        Model.deleteHabit(data.oldHabitName);
+        if (!(habit instanceof QuantitativeHabit)) {
+          // bool habit
+          habit.name = data.editedName
+          habit.category = data.editedCategory
+          habit.description = data.editedDesc
+        } else {
+          habit.name = data.editedName
+          habit.quantityFormat = data.editedFormat
+          habit.category = data.editedCategory
+          habit.description = data.editedDesc
+        }
+        Model.setHabit(habit)
+      } else {
+        // Habit Name didn't change
+        if (!(habit instanceof QuantitativeHabit)) {
+          // bool habit
+          habit.category = data.editedCategory
+          habit.description = data.editedDesc
+        } else {
+          habit.quantityFormat = data.editedFormat
+          habit.category = data.editedCategory
+          habit.description = data.editedDesc
+        }
+        Model.setHabit(habit)
+      }
+      View.editHabitModal.hide();
+      View.editHabitModal.clear();
+
+      View.habit.displayHabits(Model.getAllHabits());
+    });
+
+    View.editHabitModal.onCancelClick(() => {
+      View.editHabitModal.hide();
+    });
   },
 };
 
