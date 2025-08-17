@@ -108,29 +108,28 @@ const Controller = {
         Model.deleteHabit(data.oldHabitName);
         if (!(habit instanceof QuantitativeHabit)) {
           // bool habit
-          habit.name = data.editedName
-          habit.category = data.editedCategory
-          habit.description = data.editedDesc
+          habit.name = data.editedName;
+          habit.category = data.editedCategory;
+          habit.description = data.editedDesc;
         } else {
-          habit.name = data.editedName
-          habit.quantityFormat = data.editedFormat
-          habit.category = data.editedCategory
-          habit.description = data.editedDesc
+          habit.name = data.editedName;
+          habit.quantityFormat = data.editedFormat;
+          habit.category = data.editedCategory;
+          habit.description = data.editedDesc;
         }
-        Model.setHabit(habit)
       } else {
         // Habit Name didn't change
         if (!(habit instanceof QuantitativeHabit)) {
           // bool habit
-          habit.category = data.editedCategory
-          habit.description = data.editedDesc
+          habit.category = data.editedCategory;
+          habit.description = data.editedDesc;
         } else {
-          habit.quantityFormat = data.editedFormat
-          habit.category = data.editedCategory
-          habit.description = data.editedDesc
+          habit.quantityFormat = data.editedFormat;
+          habit.category = data.editedCategory;
+          habit.description = data.editedDesc;
         }
-        Model.setHabit(habit)
       }
+      Model.setHabit(habit);
       View.editHabitModal.hide();
       View.editHabitModal.clear();
 
