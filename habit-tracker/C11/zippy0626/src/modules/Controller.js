@@ -27,20 +27,21 @@ const Controller = {
 
   bindHabitEvents() {
     View.habit.onHabitCardClick((event) => {
-      const dateData = View.habit.getClickedDateData(event.target);
-      if (dateData) {
-        const habit = Model.getHabit(dateData.habitName);
-        View.logModal.updateFormView(dateData, habit);
-        View.logModal.show();
+      // Differentiate between a clicked date vs. edit habit
+      const element = event.target;
+      if (element.classList.contains("edit-icon")) {
+        const habitName = event.target.closest(".habit-card").dataset.habitName;
+        const habit = Model.getHabit(habitName);
+        View.editHabitModal.updateFormView(habit);
+        View.editHabitModal.show();
+      } else if (element.classList.contains("date-box")) {
+        const dateData = View.habit.getClickedDateData(element);
+        if (dateData) {
+          const habit = Model.getHabit(dateData.habitName);
+          View.logModal.updateFormView(dateData, habit);
+          View.logModal.show();
+        }
       }
-    });
-
-    View.habit.onEditClick((event) => {
-      const habitName = event.target.closest(".habit-card").dataset.habitName
-      const habit = Model.getHabit(habitName)
-      console.log(habitName, habit)
-      View.editHabitModal.updateFormView(habit)
-      View.editHabitModal.show()
     });
   },
 
@@ -97,9 +98,7 @@ const Controller = {
     });
 
     // --- Edit Habit Modal Event Listeners ---
-    View.editHabitModal.onCancelClick(
-      View.editHabitModal.hide
-    )
+    View.editHabitModal.onCancelClick(View.editHabitModal.hide);
   },
 };
 

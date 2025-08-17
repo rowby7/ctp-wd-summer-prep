@@ -114,10 +114,6 @@ const View = {
       }
     },
 
-    onEditClick(callback) {
-      View.query(".edit-icon").addEventListener('click', callback)
-    },
-
     onHabitCardClick(callback) {
       View.query(".user-habits-container").addEventListener("click", callback);
     },
