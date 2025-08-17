@@ -20,17 +20,27 @@ const Controller = {
       View.addHabitModal.hide();
       View.logModal.clear();
       View.logModal.hide();
+      View.editHabitModal.clear();
+      View.editHabitModal.hide();
     });
   },
 
   bindHabitEvents() {
     View.habit.onHabitCardClick((event) => {
-      const dateData = View.habit.getClickedDateData(event.target)
+      const dateData = View.habit.getClickedDateData(event.target);
       if (dateData) {
-        const habit = Model.getHabit(dateData.habitName)
-        View.logModal.updateFormView(dateData, habit)
-        View.logModal.show()
+        const habit = Model.getHabit(dateData.habitName);
+        View.logModal.updateFormView(dateData, habit);
+        View.logModal.show();
       }
+    });
+
+    View.habit.onEditClick((event) => {
+      const habitName = event.target.closest(".habit-card").dataset.habitName
+      const habit = Model.getHabit(habitName)
+      console.log(habitName, habit)
+      View.editHabitModal.updateFormView(habit)
+      View.editHabitModal.show()
     });
   },
 
@@ -64,27 +74,32 @@ const Controller = {
     // --- Log Habit Modal Event Listeners ---
     View.logModal.onSubmitClick((event) => {
       event.preventDefault();
-      const data = View.logModal.getFormData()
+      const data = View.logModal.getFormData();
       // {completed: 'false', quantity: '0', notes: '', accessDate: '2025-03-09', habitName: 'Running'}
-      const habit = Model.getHabit(data.habitName)
+      const habit = Model.getHabit(data.habitName);
       if (habit instanceof QuantitativeHabit) {
-        habit.changeQuantityOnDate(data.accessDate, data.quantity)
-        habit.changeCompletionOnDate(data.accessDate, data.completed)
-        habit.changeNotesOnDate(data.accessDate, data.notes)
+        habit.changeQuantityOnDate(data.accessDate, data.quantity);
+        habit.changeCompletionOnDate(data.accessDate, data.completed);
+        habit.changeNotesOnDate(data.accessDate, data.notes);
       } else {
-        habit.changeCompletionOnDate(data.accessDate, data.completed)
-        habit.changeNotesOnDate(data.accessDate, data.notes)
+        habit.changeCompletionOnDate(data.accessDate, data.completed);
+        habit.changeNotesOnDate(data.accessDate, data.notes);
       }
-      Model.setHabit(habit)
+      Model.setHabit(habit);
 
       View.logModal.hide();
 
-      View.habit.displayHabits(Model.getAllHabits())
+      View.habit.displayHabits(Model.getAllHabits());
     });
 
     View.logModal.onCancelClick(() => {
       View.logModal.hide();
     });
+
+    // --- Edit Habit Modal Event Listeners ---
+    View.editHabitModal.onCancelClick(
+      View.editHabitModal.hide
+    )
   },
 };
 

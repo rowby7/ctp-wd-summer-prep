@@ -1,6 +1,6 @@
 import { format } from "date-fns";
 import { QuantitativeHabit } from "./habit.js";
-import imgUrl from '../../public/edit-icon.svg?url'
+import imgUrl from "/edit-icon.svg?url";
 
 const View = {
   query(selector) {
@@ -63,8 +63,8 @@ const View = {
           box.dataset.date = format(day, "yyyy-MM-dd");
 
           // Make green if done on that day
-          let accessDate = format(day, "yyyy-MM-dd")
-          habit.getCompletionOnDate(accessDate) === true ? box.classList.add("done") : undefined
+          let accessDate = format(day, "yyyy-MM-dd");
+          habit.getCompletionOnDate(accessDate) === true ? box.classList.add("done") : undefined;
 
           month.appendChild(box);
         }
@@ -84,24 +84,20 @@ const View = {
       habitDesc.classList.add("habit-desc");
       habitDesc.textContent = "Description: " + habit.description; // fix later
 
-      const habitEditIcon = document.createElement('img')
-      habitEditIcon.classList.add('edit-icon')
-      habitEditIcon.src = imgUrl
+      const habitEditIcon = document.createElement("img");
+      habitEditIcon.classList.add("edit-icon");
+      habitEditIcon.src = imgUrl;
 
       habitCard.appendChild(habitHeading);
       habitCard.appendChild(monthsContainer);
       habitCard.appendChild(habitDesc);
-      habitCard.appendChild(habitEditIcon)
+      habitCard.appendChild(habitEditIcon);
 
       // Attach dataset attributes
       habitCard.dataset.habitName = habit.name;
       habitCard.dataset.category = habit.category;
 
       return habitCard;
-    },
-
-    onHabitCardClick(callback) {
-      View.query(".user-habits-container").addEventListener("click", callback);
     },
 
     getClickedDateData(target) {
@@ -116,6 +112,14 @@ const View = {
       } else {
         return undefined;
       }
+    },
+
+    onEditClick(callback) {
+      View.query(".edit-icon").addEventListener('click', callback)
+    },
+
+    onHabitCardClick(callback) {
+      View.query(".user-habits-container").addEventListener("click", callback);
     },
   },
 
@@ -140,16 +144,16 @@ const View = {
       const data = new FormData(modal.querySelector("#log-habit-form"));
       const obj = {};
       for (const pair of data.entries()) {
-        let key = pair[0]
-        let value = pair[1]
+        let key = pair[0];
+        let value = pair[1];
         // Convert str data to correct data types
         if (key === "completed") {
-          value === "true" ? value = true : value = false
+          value === "true" ? (value = true) : (value = false);
         }
         if (key === "quantity") {
-          value instanceof String ? value = Number(value) : value = Number(value)
+          value instanceof String ? (value = Number(value)) : (value = Number(value));
         }
-        obj[key] = value
+        obj[key] = value;
       }
       obj.accessDate = modal.dataset.accessDate;
       obj.habitName = modal.dataset.habitName;
@@ -183,7 +187,7 @@ const View = {
         quantityInput.classList.remove("hidden");
         quantityLabel.classList.remove("hidden");
         quantityInput.value = habit.getQuantityOnDate(dateData.accessDate);
-        let format = habit.getQuantityFormat()[0].toUpperCase() + habit.getQuantityFormat().slice(1).toLowerCase()
+        let format = habit.getQuantityFormat()[0].toUpperCase() + habit.getQuantityFormat().slice(1).toLowerCase();
         quantityLabel.textContent = `${format} Completed:`;
       } else {
         quantityInput.classList.add("hidden");
@@ -257,29 +261,35 @@ const View = {
   // --- Edit Habit Modal Methods ---
   editHabitModal: {
     show() {
-      
+      View.query(".edit-habit-modal").classList.remove("hidden");
+      View.query(".modal-overlay").classList.remove("hidden");
     },
 
     hide() {
-      
+      View.query(".edit-habit-modal").classList.add("hidden");
+      View.query(".modal-overlay").classList.add("hidden");
     },
 
     clear() {
-
+      View.query(".edit-habit-form").reset();
     },
 
-    getFormData() {
-
+    updateFormView(habit) {
+      View.query(".edit-modal-heading").value = habit.name || ""
+      View.query("#edit-name").textContent = `Edit ${habit.name}`
+      View.query("#edit-format")
+      View.query("#edit-category")
+      View.query("#edit-desc")
     },
 
-    onSubmitClick() {
-      
-    },
+    getFormData() {},
 
-    onCancelClick() {
-      
+    onSubmitClick(callback) {},
+
+    onCancelClick(callback) {
+      View.query(".edit-form-btns button[type='reset']").addEventListener('click', callback)
     },
-  }
+  },
 };
 
 export default View;

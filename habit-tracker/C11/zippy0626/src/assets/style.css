@@ -339,5 +339,6 @@ nav h1:active {
   width: 25px;
   height: 25px;
   margin-left: auto;
+  cursor: pointer;
+  border-radius: 5px;
 }
-
