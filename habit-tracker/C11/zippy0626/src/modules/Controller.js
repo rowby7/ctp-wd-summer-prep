@@ -5,18 +5,20 @@ import { QuantitativeHabit } from "./habit.js";
 const Controller = {
   init() {
     Model.initStorage();
-    View.habit.displayHabits(Model.getAllHabits());
-
     this.bindHabitEvents();
     this.bindModalEvents();
+  },
+
+  bindHabitEvents() {
+    View.habit.displayHabits(Model.getAllHabits());
 
     View.onAddHabitBtnClick(() => {
       View.addHabitModal.clear();
       View.addHabitModal.show();
     });
-  },
 
-  bindHabitEvents() {
+    View.scrollToThisMonth()
+
     View.habit.onHabitCardClick((event) => {
       // Differentiate between a clicked date vs. edit habit
       const element = event.target;
@@ -152,7 +154,7 @@ const Controller = {
     // --- Confirm Modal Event Listeners ---
     View.confirmModal.onSubmitClick(() => {
       // add validate habit name logic!!
-    })
+    });
 
     View.confirmModal.onCancelClick(() => {
       View.confirmModal.hide();

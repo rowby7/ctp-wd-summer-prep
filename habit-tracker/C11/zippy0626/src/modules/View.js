@@ -7,6 +7,26 @@ const View = {
     return document.querySelector(selector);
   },
 
+  scrollToThisMonth() {
+    // will scroll to current month for all habits
+    window.addEventListener("DOMContentLoaded", () => {
+      const currentMonth = new Date().getMonth(); // 0–11
+
+      document.querySelectorAll(".month-container").forEach((container) => {
+        const targetMonth = container.querySelector(`.month[data-month-index='${currentMonth}']`);
+        if (targetMonth) {
+          if (container.scrollWidth > container.clientWidth || container.scrollHeight > container.clientHeight) {
+            targetMonth.scrollIntoView({
+              behavior: "smooth",
+              inline: "center", // for horizontal
+              block: "nearest", // for vertical
+            });
+          }
+        }
+      });
+    });
+  },
+
   // --- Overlay and Add Habit Btn ---
   onAddHabitBtnClick(callback) {
     View.query(".user-add-habit").addEventListener("click", callback);
@@ -42,6 +62,8 @@ const View = {
       for (let monthIndex = 0; monthIndex < 12; monthIndex++) {
         const month = document.createElement("div");
         month.classList.add("month");
+        // For scrolling effect
+        month.dataset.monthIndex = monthIndex
 
         let firstDay = new Date(year, monthIndex, 1);
         let lastDay = new Date(year, monthIndex + 1, 0);
@@ -312,48 +334,46 @@ const View = {
     },
 
     onDeleteClick(callback) {
-      View.query(".edit-form-btns button[type='button']").addEventListener('click', callback)
+      View.query(".edit-form-btns button[type='button']").addEventListener("click", callback);
     },
   },
 
   confirmModal: {
     show() {
-      View.query(".modal-overlay").classList.remove('hidden')
-      View.query(".confirm-modal").classList.remove('hidden')
+      View.query(".modal-overlay").classList.remove("hidden");
+      View.query(".confirm-modal").classList.remove("hidden");
     },
 
     hide() {
-      View.query(".modal-overlay").classList.add('hidden')
-      View.query(".confirm-modal").classList.add('hidden')
+      View.query(".modal-overlay").classList.add("hidden");
+      View.query(".confirm-modal").classList.add("hidden");
     },
 
     clear() {
-      View.query(".confirm-modal-form").reset()
+      View.query(".confirm-modal-form").reset();
     },
 
     showInvalidInputMsg() {
-      View.query(".confirm-habit-name .confirm-modal-warning").classList.remove('hidden')
+      View.query(".confirm-habit-name .confirm-modal-warning").classList.remove("hidden");
     },
 
     hideInvalidInputMsg() {
-      View.query(".confirm-habit-name .confirm-modal-warning").classList.add('hidden')
+      View.query(".confirm-habit-name .confirm-modal-warning").classList.add("hidden");
     },
 
     getFormData() {
-      const habitName = View.query("#confirm-habit-name").value
-      return habitName
+      const habitName = View.query("#confirm-habit-name").value;
+      return habitName;
     },
 
-    updateFormView(habit) {
-      
-    },
+    updateFormView(habit) {},
 
     onSubmitClick(callback) {
-      View.query(".confirm-modal-form").addEventListener('submit', callback)
+      View.query(".confirm-modal-form").addEventListener("submit", callback);
     },
 
     onCancelClick(callback) {
-      View.query(".confirm-modal-btns button[type='reset']").addEventListener('click', callback)
+      View.query(".confirm-modal-btns button[type='reset']").addEventListener("click", callback);
     },
   },
 };
