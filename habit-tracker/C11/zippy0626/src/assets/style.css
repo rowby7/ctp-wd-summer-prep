@@ -342,3 +342,41 @@ nav h1:active {
   cursor: pointer;
   border-radius: 5px;
 }
+
+/* Confirm modal */
+.confirm-modal {
+  padding: 0.8rem;
+  border-radius: 8px;
+  z-index: 2;
+  width: 100%;
+  max-width: 320px;
+  background-color: pink;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  gap: 10px;
+}
+
+.confirm-habit-name .confirm-modal-warning {
+  font-size: 12px;
+}
+
+.confirm-modal-warning {
+  font-weight: bold;
+  color: red;
+}
+
+.confirm-modal-btns {
+  margin-top: 1rem;
+  gap: 1rem;
+}
+
+.confirm-modal button {
+  cursor: pointer;
+  user-select: none;
+}
+
+.confirm-modal-btns button[type="submit"] {
+  margin-left: auto;
+}
