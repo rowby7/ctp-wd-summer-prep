@@ -132,16 +132,16 @@
         <h1 class="edit-modal-heading">Edit HABIT</h1>
         <form class="edit-habit-form flex-col">
           <div class="edit-name">
-            <label for="edit-name">Edit Habit Name:</label>
+            <label for="edit-name">Edit Habit Name:<span aria-label="Required Field" class="required-asterisk"> *</span></label>
             <input type="text" name="editedName" id="edit-name" placeholder="Habit Name" required/>
           </div>
           <div class="edit-format">
-            <label for="edit-format">Edit Format:</label>
+            <label for="edit-format">Edit Format:<span aria-label="Required Field" class="required-asterisk"> *</span></label>
             <input type="text" name="editedFormat" id="edit-format" placeholder="Habit Format" required/>
             <span class="form-note">Note: Will not convert past data!</span>
           </div>
           <div class="edit-category">
-            <label for="edit-category">Edit Category:</label>
+            <label for="edit-category">Edit Category:<span aria-label="Required Field" class="required-asterisk"> *</span></label>
             <input type="text" name="editedCategory" id="edit-category" placeholder="Habit Category" required/>
           </div>
           <div class="edit-desc">
@@ -150,22 +150,22 @@
           </div>
           <div class="edit-form-btns">
             <button type="submit">Done Editing</button>
-            <button type="reset">Cancel</button>
             <button type="button">Delete Habit</button>
+            <button type="reset">Cancel</button>
           </div>
         </form>
       </section>
 
-      <div class="confirm-modal flex-col hidden">
-        <h2>Are you sure you want to delete "HABITNAME"?</h2>
-        <p class="confirm-modal-warning">This action cannot be undone!</p>
-        <form class="confirm-modal-form">
+      <div class="confirm-delete-modal flex-col hidden">
+        <h2 class="confirm-delete-modal-heading">Are you sure you want to delete "HABITNAME"?</h2>
+        <p class="confirm-delete-modal-warning">This action cannot be undone!</p>
+        <form class="confirm-delete-modal-form">
           <div class="confirm-habit-name">
             <label for="confirm-habit-name">Type Habit Name To Confirm:</label>
             <input type="text" name="confirmName" id="confirm-habit-name" placeholder="TYPE `HABITNAME` HERE" required/>
-            <p class="confirm-modal-warning hidden">Name does not match!</p>
+            <p class="confirm-delete-modal-warning hidden">Name does not match!</p>
           </div>
-          <div class="confirm-modal-btns flex-row">
+          <div class="confirm-delete-modal-btns flex-row">
             <button type="submit">Confirm</button>
             <button type="reset">Cancel</button>
           </div>
