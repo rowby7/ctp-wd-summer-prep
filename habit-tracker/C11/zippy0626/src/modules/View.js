@@ -9,22 +9,26 @@ const View = {
 
   scrollToThisMonth() {
     // will scroll to current month for all habits
-    window.addEventListener("DOMContentLoaded", () => {
-      const currentMonth = new Date().getMonth(); // 0–11
+    const currentMonth = new Date().getMonth(); // 0–11
 
-      document.querySelectorAll(".month-container").forEach((container) => {
-        const targetMonth = container.querySelector(`.month[data-month-index='${currentMonth}']`);
-        if (targetMonth) {
-          if (container.scrollWidth > container.clientWidth || container.scrollHeight > container.clientHeight) {
-            targetMonth.scrollIntoView({
-              behavior: "smooth",
-              inline: "center", // for horizontal
-              block: "nearest", // for vertical
-            });
-          }
+    // position before scrolling
+    const [x, y] = [window.scrollX, window.scrollY]
+
+    document.querySelectorAll(".month-container").forEach((container) => {
+      const targetMonth = container.querySelector(`.month[data-month-index='${currentMonth}']`);
+      if (targetMonth) {
+        // If the current width/height is less than actual width/height (meaning scrollable)
+        if (container.scrollWidth > container.clientWidth || container.scrollHeight > container.clientHeight) {
+          targetMonth.scrollIntoView({
+            behavior: "smooth",
+            inline: "center", // for horizontal
+            block: "center", // for vertical
+          });
         }
-      });
+      }
     });
+
+    window.scrollTo(x, y);
   },
 
   // --- Overlay and Add Habit Btn ---

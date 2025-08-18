@@ -17,7 +17,7 @@ const Controller = {
       View.addHabitModal.show();
     });
 
-    View.scrollToThisMonth()
+    View.scrollToThisMonth();
 
     View.habit.onHabitCardClick((event) => {
       // Differentiate between a clicked date vs. edit habit
@@ -48,6 +48,7 @@ const Controller = {
       View.editHabitModal.hide();
       View.confirmModal.clear();
       View.confirmModal.hide();
+      View.scrollToThisMonth();
     });
 
     // --- Add Habit Modal Event Listeners ---
@@ -60,11 +61,13 @@ const Controller = {
       Model.setHabit(habit);
 
       View.habit.displayHabits(Model.getAllHabits());
+      View.scrollToThisMonth();
     });
 
     View.addHabitModal.onCancelClick(() => {
       View.addHabitModal.clear();
       View.addHabitModal.hide();
+      View.scrollToThisMonth();
     });
 
     View.addHabitModal.onHabitTypeClick((event) => {
@@ -95,10 +98,12 @@ const Controller = {
       View.logModal.hide();
 
       View.habit.displayHabits(Model.getAllHabits());
+      View.scrollToThisMonth();
     });
 
     View.logModal.onCancelClick(() => {
       View.logModal.hide();
+      View.scrollToThisMonth();
     });
 
     // --- Edit Habit Modal Event Listeners ---
@@ -138,10 +143,12 @@ const Controller = {
       View.editHabitModal.clear();
 
       View.habit.displayHabits(Model.getAllHabits());
+      View.scrollToThisMonth();
     });
 
     View.editHabitModal.onCancelClick(() => {
       View.editHabitModal.hide();
+      View.scrollToThisMonth();
     });
 
     View.editHabitModal.onDeleteClick(() => {
@@ -154,10 +161,12 @@ const Controller = {
     // --- Confirm Modal Event Listeners ---
     View.confirmModal.onSubmitClick(() => {
       // add validate habit name logic!!
+      View.scrollToThisMonth();
     });
 
     View.confirmModal.onCancelClick(() => {
       View.confirmModal.hide();
+      View.scrollToThisMonth();
     });
   },
 };
