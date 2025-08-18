@@ -12,7 +12,7 @@ const View = {
     const currentMonth = new Date().getMonth(); // 0–11
 
     // position before scrolling
-    const [x, y] = [window.scrollX, window.scrollY]
+    const [x, y] = [window.scrollX, window.scrollY];
 
     document.querySelectorAll(".month-container").forEach((container) => {
       const targetMonth = container.querySelector(`.month[data-month-index='${currentMonth}']`);
@@ -67,7 +67,7 @@ const View = {
         const month = document.createElement("div");
         month.classList.add("month");
         // For scrolling effect
-        month.dataset.monthIndex = monthIndex
+        month.dataset.monthIndex = monthIndex;
 
         let firstDay = new Date(year, monthIndex, 1);
         let lastDay = new Date(year, monthIndex + 1, 0);
@@ -109,13 +109,14 @@ const View = {
       habitHeading.classList.add("habit-card-name");
       habitHeading.textContent = habit.name;
 
-      const habitCate = document.createElement('h3')
-      habitCate.classList.add('habit-card-category')
-      habitCate.textContent = habit.category
+      const habitCate = document.createElement("h3");
+      habitCate.classList.add("habit-card-category");
+      habitCate.textContent = habit.category;
 
       const habitDesc = document.createElement("p");
       habitDesc.classList.add("habit-desc");
-      habitDesc.textContent = "Description: " + habit.description; // fix later
+      // habitDesc.textContent = "Description: " + habit.description;
+      habit.description ? (habitDesc.textContent = "Description: " + habit.description) : (habitDesc.textContent = "");
 
       const habitEditIcon = document.createElement("img");
       habitEditIcon.classList.add("edit-icon");
@@ -311,11 +312,11 @@ const View = {
 
       // Handle Boolean Habits
       if (!(habit instanceof QuantitativeHabit)) {
-        View.query(".edit-format").classList.add("hidden")
-        View.query("#edit-format").required = false
+        View.query(".edit-format").classList.add("hidden");
+        View.query("#edit-format").required = false;
       } else {
         View.query(".edit-format").classList.remove("hidden");
-        View.query("#edit-format").required = true
+        View.query("#edit-format").required = true;
       }
 
       View.query("#edit-format").value = habit.quantityFormat || "";
