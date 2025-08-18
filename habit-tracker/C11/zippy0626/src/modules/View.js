@@ -310,6 +310,51 @@ const View = {
     onCancelClick(callback) {
       View.query(".edit-form-btns button[type='reset']").addEventListener("click", callback);
     },
+
+    onDeleteClick(callback) {
+      View.query(".edit-form-btns button[type='button']").addEventListener('click', callback)
+    },
+  },
+
+  confirmModal: {
+    show() {
+      View.query(".modal-overlay").classList.remove('hidden')
+      View.query(".confirm-modal").classList.remove('hidden')
+    },
+
+    hide() {
+      View.query(".modal-overlay").classList.add('hidden')
+      View.query(".confirm-modal").classList.add('hidden')
+    },
+
+    clear() {
+      View.query(".confirm-modal-form").reset()
+    },
+
+    showInvalidInputMsg() {
+      View.query(".confirm-habit-name .confirm-modal-warning").classList.remove('hidden')
+    },
+
+    hideInvalidInputMsg() {
+      View.query(".confirm-habit-name .confirm-modal-warning").classList.add('hidden')
+    },
+
+    getFormData() {
+      const habitName = View.query("#confirm-habit-name").value
+      return habitName
+    },
+
+    updateFormView(habit) {
+      
+    },
+
+    onSubmitClick(callback) {
+      View.query(".confirm-modal-form").addEventListener('submit', callback)
+    },
+
+    onCancelClick(callback) {
+      View.query(".confirm-modal-btns button[type='reset']").addEventListener('click', callback)
+    },
   },
 };
 

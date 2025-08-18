@@ -14,15 +14,6 @@ const Controller = {
       View.addHabitModal.clear();
       View.addHabitModal.show();
     });
-
-    View.onModalOverlayClick(() => {
-      View.addHabitModal.clear();
-      View.addHabitModal.hide();
-      View.logModal.clear();
-      View.logModal.hide();
-      View.editHabitModal.clear();
-      View.editHabitModal.hide();
-    });
   },
 
   bindHabitEvents() {
@@ -46,6 +37,17 @@ const Controller = {
   },
 
   bindModalEvents() {
+    View.onModalOverlayClick(() => {
+      View.addHabitModal.clear();
+      View.addHabitModal.hide();
+      View.logModal.clear();
+      View.logModal.hide();
+      View.editHabitModal.clear();
+      View.editHabitModal.hide();
+      View.confirmModal.clear();
+      View.confirmModal.hide();
+    });
+
     // --- Add Habit Modal Event Listeners ---
     View.addHabitModal.onSubmitClick((event) => {
       event.preventDefault();
@@ -138,6 +140,22 @@ const Controller = {
 
     View.editHabitModal.onCancelClick(() => {
       View.editHabitModal.hide();
+    });
+
+    View.editHabitModal.onDeleteClick(() => {
+      View.editHabitModal.clear();
+      View.editHabitModal.hide();
+      View.confirmModal.clear();
+      View.confirmModal.show();
+    });
+
+    // --- Confirm Modal Event Listeners ---
+    View.confirmModal.onSubmitClick(() => {
+      // add validate habit name logic!!
+    })
+
+    View.confirmModal.onCancelClick(() => {
+      View.confirmModal.hide();
     });
   },
 };
