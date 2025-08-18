@@ -105,9 +105,13 @@ const View = {
       habitCard.classList.add("habit-card");
       habitCard.classList.add("flex-col");
 
-      const habitHeading = document.createElement("h1");
+      const habitHeading = document.createElement("h2");
       habitHeading.classList.add("habit-card-name");
       habitHeading.textContent = habit.name;
+
+      const habitCate = document.createElement('h3')
+      habitCate.classList.add('habit-card-category')
+      habitCate.textContent = habit.category
 
       const habitDesc = document.createElement("p");
       habitDesc.classList.add("habit-desc");
@@ -118,6 +122,7 @@ const View = {
       habitEditIcon.src = imgUrl;
 
       habitCard.appendChild(habitHeading);
+      habitCard.appendChild(habitCate);
       habitCard.appendChild(monthsContainer);
       habitCard.appendChild(habitDesc);
       habitCard.appendChild(habitEditIcon);
