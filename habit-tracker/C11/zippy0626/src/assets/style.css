@@ -96,6 +96,7 @@ nav h1:active {
   user-select: none;
 
   background-color: lightgreen;
+  padding: .8rem;
 }
 
 .user-search {
@@ -120,6 +121,7 @@ nav h1:active {
   width: 100%;
   min-height: 300px;
   gap: 2rem;
+  margin-top: 2rem;
 }
 
 /* habit card */
@@ -176,9 +178,7 @@ nav h1:active {
   padding: 0.8rem;
   border-radius: 8px;
   z-index: 2;
-  width: 100%;
   max-width: 400px;
-  height: 475px;
   background-color: pink;
   position: fixed;
   top: 50%;
@@ -226,12 +226,16 @@ nav h1:active {
 #habit-desc {
   resize: none;
   height: 175px;
+  width: 300px;
   padding: 0.5rem;
 }
 
 .add-habit-modal-form-buttons {
   margin-left: auto;
+  display: flex;
+  gap: 1rem;
 }
+
 /* --- Log Modal --- */
 .log-modal {
   padding: 0.8rem;

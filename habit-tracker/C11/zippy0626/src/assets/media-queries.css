@@ -17,4 +17,17 @@
     margin-bottom: auto;
     font-size: 14px;
   }
+
+  .habit-card {
+    padding: 1rem;
+  }
+  
+  .edit-icon {
+    width: 30px;
+    height: 30px;
+  }
+  
+  button {
+    transform: scale(1.23);
+  }
 }
