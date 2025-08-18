@@ -20,7 +20,7 @@ const View = {
         // If the current width/height is less than actual width/height (meaning scrollable)
         if (container.scrollWidth > container.clientWidth || container.scrollHeight > container.clientHeight) {
           targetMonth.scrollIntoView({
-            behavior: "smooth",
+            behavior: "instant",
             inline: "center", // for horizontal
             block: "center", // for vertical
           });
@@ -305,9 +305,13 @@ const View = {
       View.query("#edit-name").value = habit.name || "";
 
       // Handle Boolean Habits
-      !(habit instanceof QuantitativeHabit)
-        ? View.query(".edit-format").classList.add("hidden")
-        : View.query(".edit-format").classList.remove("hidden");
+      if (!(habit instanceof QuantitativeHabit)) {
+        View.query(".edit-format").classList.add("hidden")
+        View.query("#edit-format").required = false
+      } else {
+        View.query(".edit-format").classList.remove("hidden");
+        View.query("#edit-format").required = true
+      }
 
       View.query("#edit-format").value = habit.quantityFormat || "";
       View.query("#edit-category").value = habit.category || "";
