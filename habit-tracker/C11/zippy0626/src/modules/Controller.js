@@ -12,12 +12,12 @@ const Controller = {
   bindHabitEvents() {
     View.habit.displayHabits(Model.getAllHabits());
 
+    View.scrollToThisMonth();
+
     View.onAddHabitBtnClick(() => {
       View.addHabitModal.clear();
       View.addHabitModal.show();
     });
-
-    View.scrollToThisMonth();
 
     View.habit.onHabitCardClick((event) => {
       // Differentiate between a clicked date vs. edit habit
@@ -154,14 +154,28 @@ const Controller = {
     View.editHabitModal.onDeleteClick(() => {
       View.editHabitModal.clear();
       View.editHabitModal.hide();
+
       View.confirmModal.clear();
+      const habit = Model.getHabit(View.query(".edit-habit-form").dataset.oldHabitName);
+      View.confirmModal.updateFormView(habit);
       View.confirmModal.show();
     });
 
     // --- Confirm Modal Event Listeners ---
-    View.confirmModal.onSubmitClick(() => {
-      // add validate habit name logic!!
-      View.scrollToThisMonth();
+    View.confirmModal.onSubmitClick((event) => {
+      event.preventDefault()
+      const confirmName = View.confirmModal.getFormData()
+      const habitToDelete = Model.getHabit(View.query(".edit-habit-form").dataset.oldHabitName);
+      if (confirmName !== habitToDelete.name) {
+        View.confirmModal.showInvalidInputMsg()
+      } else {
+        View.confirmModal.hideInvalidInputMsg()
+        Model.deleteHabit(habitToDelete.name)
+        View.confirmModal.hide()
+        View.confirmModal.clear()
+        View.habit.displayHabits(Model.getAllHabits())
+        View.scrollToThisMonth();
+      }
     });
 
     View.confirmModal.onCancelClick(() => {

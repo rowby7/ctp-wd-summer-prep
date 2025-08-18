@@ -355,24 +355,24 @@ const View = {
   confirmModal: {
     show() {
       View.query(".modal-overlay").classList.remove("hidden");
-      View.query(".confirm-modal").classList.remove("hidden");
+      View.query(".confirm-delete-modal").classList.remove("hidden");
     },
 
     hide() {
       View.query(".modal-overlay").classList.add("hidden");
-      View.query(".confirm-modal").classList.add("hidden");
+      View.query(".confirm-delete-modal").classList.add("hidden");
     },
 
     clear() {
-      View.query(".confirm-modal-form").reset();
+      View.query(".confirm-delete-modal-form").reset();
     },
 
     showInvalidInputMsg() {
-      View.query(".confirm-habit-name .confirm-modal-warning").classList.remove("hidden");
+      View.query(".confirm-habit-name .confirm-delete-modal-warning").classList.remove("hidden");
     },
 
     hideInvalidInputMsg() {
-      View.query(".confirm-habit-name .confirm-modal-warning").classList.add("hidden");
+      View.query(".confirm-habit-name .confirm-delete-modal-warning").classList.add("hidden");
     },
 
     getFormData() {
@@ -380,14 +380,17 @@ const View = {
       return habitName;
     },
 
-    updateFormView(habit) {},
+    updateFormView(habit) {
+      View.query(".confirm-delete-modal-heading").textContent = `Are you sure you want to delete "${habit.name}"?`
+      View.query("#confirm-habit-name").placeholder = `TYPE "${habit.name}" HERE`
+    },
 
     onSubmitClick(callback) {
-      View.query(".confirm-modal-form").addEventListener("submit", callback);
+      View.query(".confirm-delete-modal-form").addEventListener("submit", callback);
     },
 
     onCancelClick(callback) {
-      View.query(".confirm-modal-btns button[type='reset']").addEventListener("click", callback);
+      View.query(".confirm-delete-modal-btns button[type='reset']").addEventListener("click", callback);
     },
   },
 };
