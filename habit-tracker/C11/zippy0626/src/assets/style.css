@@ -158,12 +158,17 @@ nav h1:active {
   writing-mode: sideways-lr;
   margin-bottom: auto;
   font-size: 12px;
+  user-select: none;
 }
 
 .date-box {
   background-color: rgb(202, 202, 202);
   cursor: pointer;
   border-radius: 1.5px;
+}
+
+.date-box:hover {
+  outline: 1px solid grey;
 }
 
 .done {
