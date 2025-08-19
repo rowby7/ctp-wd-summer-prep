@@ -37,15 +37,19 @@ class QuantitativeHabit {
 
   getCurrentStreak() {
     let streak = 0;
-    // Newest to oldest date keys
-    const dates = Object.keys(this.completionHistory).sort().reverse();
-    for (const date of dates) {
-      if (this.completionHistory[date].completed === true) {
-        streak += 1;
+    // yearIndex, monthIndex, dayIndex
+    const firstDayOfYear = new Date(new Date().getFullYear(), 0, 1);
+    const today = new Date();
+    // loop thru days decrementing
+    for (let day = new Date(today); day >= firstDayOfYear; day.setDate(day.getDate() - 1)) {
+      let formattedDay = format(day, "yyyy-MM-dd");
+      if (this.getCompletionOnDate(formattedDay) === true) {
+        streak++;
       } else {
-        break;
+        return streak;
       }
     }
+
     return streak;
   }
 
@@ -53,15 +57,22 @@ class QuantitativeHabit {
     let longestStreak = 0;
     let streak = 0;
 
-    const dates = Object.keys(this.completionHistory).sort().reverse();
-    for (const date of dates) {
-      if (this.completionHistory[date].completed === true) {
-        streak += 1;
-        if (streak > longestStreak) longestStreak = streak;
+    const firstDayOfYear = new Date(new Date().getFullYear(), 0, 1);
+    const lastDayOfYear = new Date(new Date().getFullYear(), 11, 31);
+
+    for (let day = new Date(lastDayOfYear); day >= firstDayOfYear; day.setDate(day.getDate() - 1)) {
+      let formattedDay = format(day, "yyyy-MM-dd");
+      if (this.getCompletionOnDate(formattedDay) === true) {
+        streak++;
       } else {
-        streak = 0;
+        if (streak > longestStreak) longestStreak = streak;
+        streak = 0; // reset
       }
     }
+
+    // final check in case the streak goes until Jan 1
+    if (streak > longestStreak) longestStreak = streak;
+
     return longestStreak;
   }
 
@@ -119,13 +130,15 @@ class BooleanHabit {
 
   getCurrentStreak() {
     let streak = 0;
-    // Newest to oldest date keys
-    const dates = Object.keys(this.completionHistory).sort().reverse();
-    for (const date of dates) {
-      if (this.completionHistory[date].completed === true) {
-        streak += 1;
+    const firstDayOfYear = new Date(new Date().getFullYear(), 0, 1);
+    const today = new Date();
+    // loop thru days decrementing
+    for (let day = new Date(today); day >= firstDayOfYear; day.setDate(day.getDate() - 1)) {
+      let formattedDay = format(day, "yyyy-MM-dd");
+      if (this.getCompletionOnDate(formattedDay) === true) {
+        streak++;
       } else {
-        break;
+        return streak;
       }
     }
     return streak;
@@ -135,15 +148,22 @@ class BooleanHabit {
     let longestStreak = 0;
     let streak = 0;
 
-    const dates = Object.keys(this.completionHistory).sort().reverse();
-    for (const date of dates) {
-      if (this.completionHistory[date].completed === true) {
-        streak += 1;
-        if (streak > longestStreak) longestStreak = streak;
+    const firstDayOfYear = new Date(new Date().getFullYear(), 0, 1);
+    const lastDayOfYear = new Date(new Date().getFullYear(), 11, 31);
+
+    for (let day = new Date(lastDayOfYear); day >= firstDayOfYear; day.setDate(day.getDate() - 1)) {
+      let formattedDay = format(day, "yyyy-MM-dd");
+      if (this.getCompletionOnDate(formattedDay) === true) {
+        streak++;
       } else {
-        streak = 0;
+        if (streak > longestStreak) longestStreak = streak;
+        streak = 0; // reset
       }
     }
+
+    // final check in case the streak goes until Jan 1
+    if (streak > longestStreak) longestStreak = streak;
+
     return longestStreak;
   }
 
