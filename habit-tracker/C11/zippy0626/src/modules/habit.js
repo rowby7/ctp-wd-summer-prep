@@ -76,6 +76,20 @@ class QuantitativeHabit {
     return longestStreak;
   }
 
+  getLastCompletedDate() {
+    const firstDayOfYear = new Date(new Date().getFullYear(), 0, 1);
+    const today = new Date();
+
+    for (let day = new Date(today); day >= firstDayOfYear; day.setDate(day.getDate() - 1)) {
+      let formattedDay = format(day, "yyyy-MM-dd");
+      if (this.getCompletionOnDate(formattedDay) === true) {
+        return new Date(day);
+      }
+    }
+
+    return undefined;
+  }
+
   getQuantityFormat() {
     return this.quantityFormat;
   }
@@ -165,6 +179,20 @@ class BooleanHabit {
     if (streak > longestStreak) longestStreak = streak;
 
     return longestStreak;
+  }
+
+  getLastCompletedDate() {
+    const firstDayOfYear = new Date(new Date().getFullYear(), 0, 1);
+    const today = new Date();
+
+    for (let day = new Date(today); day >= firstDayOfYear; day.setDate(day.getDate() - 1)) {
+      let formattedDay = format(day, "yyyy-MM-dd");
+      if (this.getCompletionOnDate(formattedDay) === true) {
+        return new Date(day);
+      }
+    }
+
+    return undefined;
   }
 
   // --- Setters ---
