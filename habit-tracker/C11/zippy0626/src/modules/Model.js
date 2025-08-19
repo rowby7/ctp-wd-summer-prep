@@ -111,21 +111,30 @@ const Model = {
         break;
 
       case "created-oldest":
-        habits.sort((a, b) => a.createdDate.localeCompare(b.createdDate))
+        habits.sort((a, b) => a.createdDate.localeCompare(b.createdDate));
         break;
 
       case "created-newest":
-        habits.sort((a, b) => b.createdDate.localeCompare(a.createdDate))
+        habits.sort((a, b) => b.createdDate.localeCompare(a.createdDate));
         break;
 
       case "last-completed-oldest":
-        habits.sort((a, b) => a.getLastCompletedDate() - b.getLastCompletedDate())
+        habits.sort((a, b) => {
+          const dateA = a.getLastCompletedDate() || "";
+          const dateB = b.getLastCompletedDate() || "";
+          return dateA.localeCompare(dateB);
+        });
         break;
-        
+
       case "last-completed-newest":
-        habits.sort((a, b) => b.getLastCompletedDate() - a.getLastCompletedDate())
+        habits.sort((a, b) => {
+          const dateA = a.getLastCompletedDate() || "";
+          const dateB = b.getLastCompletedDate() || "";
+          return dateB.localeCompare(dateA);
+        });
         break;
     }
+    
     localStorage.setItem("all-habits", JSON.stringify(habits));
   },
 };

@@ -83,7 +83,7 @@ class QuantitativeHabit {
     for (let day = new Date(today); day >= firstDayOfYear; day.setDate(day.getDate() - 1)) {
       let formattedDay = format(day, "yyyy-MM-dd");
       if (this.getCompletionOnDate(formattedDay) === true) {
-        return new Date(day);
+        return formattedDay;
       }
     }
 
@@ -188,7 +188,7 @@ class BooleanHabit {
     for (let day = new Date(today); day >= firstDayOfYear; day.setDate(day.getDate() - 1)) {
       let formattedDay = format(day, "yyyy-MM-dd");
       if (this.getCompletionOnDate(formattedDay) === true) {
-        return new Date(day);
+        return formattedDay;
       }
     }
 
