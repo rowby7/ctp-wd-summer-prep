@@ -94,6 +94,40 @@ const Model = {
   deleteAllHabits() {
     localStorage.setItem("all-habits", JSON.stringify([]));
   },
+
+  sortHabits(option) {
+    // a-to-z, z-to-a,
+    // created-oldest, created-newest
+    // last-completed-oldest, last-completed-newest
+    const habits = Model.getAllHabits();
+    switch (option) {
+      case "a-to-z":
+        // localeCompare method for strings
+        habits.sort((a, b) => a.name.localeCompare(b.name));
+        break;
+
+      case "z-to-a":
+        habits.sort((a, b) => b.name.localeCompare(a.name));
+        break;
+
+      case "created-oldest":
+        habits.sort((a, b) => a.createdDate.localeCompare(b.createdDate))
+        break;
+
+      case "created-newest":
+        habits.sort((a, b) => b.createdDate.localeCompare(a.createdDate))
+        break;
+
+      case "last-completed-oldest":
+        habits.sort((a, b) => a.getLastCompletedDate() - b.getLastCompletedDate())
+        break;
+        
+      case "last-completed-newest":
+        habits.sort((a, b) => b.getLastCompletedDate() - a.getLastCompletedDate())
+        break;
+    }
+    localStorage.setItem("all-habits", JSON.stringify(habits));
+  },
 };
 
 export default Model;
