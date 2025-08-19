@@ -274,6 +274,7 @@ nav h1:active {
 .log-completion-status label,
 .log-completion-status input[type="radio"] {
   cursor: pointer;
+  user-select: none;
 }
 
 .log-modal .log-notes {
