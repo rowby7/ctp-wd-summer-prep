@@ -8,26 +8,46 @@ const View = {
   },
 
   scrollToThisMonth() {
-    // will scroll to current month for all habits
+    // will scroll to current month for all habit cards
     const currentMonth = new Date().getMonth(); // 0–11
 
-    // position before scrolling
+    // reset to previous current view
     const [x, y] = [window.scrollX, window.scrollY];
 
     document.querySelectorAll(".month-container").forEach((container) => {
-      const targetMonth = container.querySelector(`.month[data-month-index='${currentMonth}']`);
-      if (targetMonth) {
-        // If the current width/height is less than actual width/height (meaning scrollable)
-        if (container.scrollWidth > container.clientWidth || container.scrollHeight > container.clientHeight) {
-          targetMonth.scrollIntoView({
-            behavior: "instant",
-            inline: "center", // for horizontal
-            block: "center", // for vertical
-          });
-        }
+      const targetMonth = container.querySelector(`.month[data-month-index ='${currentMonth}']`);
+      // If the current width/height is less than actual width/height (meaning scrollable)
+      if (container.scrollWidth > container.clientWidth || container.scrollHeight > container.clientHeight) {
+        targetMonth.scrollIntoView({
+          behavior: "instant",
+          inline: "center", // for horizontal
+          block: "center", // for vertical
+        });
       }
     });
 
+    window.scrollTo(x, y);
+  },
+
+  scrollToMonthForHabit(monthIndex, habitName) {
+    // will scroll to month for a given habit, thru it's habit card
+    const [x, y] = [window.scrollX, window.scrollY];
+    const monthContainer = document
+      .querySelector(`.habit-card[data-habit-name ='${habitName}']`)
+      .querySelector(".month-container");
+
+    const targetMonth = monthContainer.querySelector(`.month[data-month-index ='${monthIndex}']`);
+    if (
+      // If the current width/height is less than actual width/height (meaning scrollable)
+      monthContainer.scrollWidth > monthContainer.clientWidth ||
+      monthContainer.scrollHeight > monthContainer.clientHeight
+    ) {
+      targetMonth.scrollIntoView({
+        behavior: "instant",
+        inline: "center",
+        block: "center",
+      });
+    }
     window.scrollTo(x, y);
   },
 
@@ -381,8 +401,8 @@ const View = {
     },
 
     updateFormView(habit) {
-      View.query(".confirm-delete-modal-heading").textContent = `Are you sure you want to delete "${habit.name}"?`
-      View.query("#confirm-habit-name").placeholder = `TYPE "${habit.name}" HERE`
+      View.query(".confirm-delete-modal-heading").textContent = `Are you sure you want to delete "${habit.name}"?`;
+      View.query("#confirm-habit-name").placeholder = `TYPE "${habit.name}" HERE`;
     },
 
     onSubmitClick(callback) {

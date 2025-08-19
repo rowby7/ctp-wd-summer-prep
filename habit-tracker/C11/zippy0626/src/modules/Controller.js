@@ -10,6 +10,8 @@ const Controller = {
   },
 
   bindHabitEvents() {
+    Model.sortHabits("last-completed-newest");
+
     View.habit.displayHabits(Model.getAllHabits());
 
     View.scrollToThisMonth();
@@ -95,15 +97,20 @@ const Controller = {
       }
       Model.setHabit(habit);
 
+      View.logModal.clear();
       View.logModal.hide();
 
       View.habit.displayHabits(Model.getAllHabits());
-      View.scrollToThisMonth();
+
+      // for scrolling effect after you log a habit
+      let y, m, d;
+      [y, m, d] = data.accessDate.split("-");
+      View.scrollToMonthForHabit(Number(m) - 1, data.habitName);
     });
 
     View.logModal.onCancelClick(() => {
+      View.logModal.clear();
       View.logModal.hide();
-      View.scrollToThisMonth();
     });
 
     // --- Edit Habit Modal Event Listeners ---
@@ -163,17 +170,17 @@ const Controller = {
 
     // --- Confirm Modal Event Listeners ---
     View.confirmModal.onSubmitClick((event) => {
-      event.preventDefault()
-      const confirmName = View.confirmModal.getFormData()
+      event.preventDefault();
+      const confirmName = View.confirmModal.getFormData();
       const habitToDelete = Model.getHabit(View.query(".edit-habit-form").dataset.oldHabitName);
       if (confirmName !== habitToDelete.name) {
-        View.confirmModal.showInvalidInputMsg()
+        View.confirmModal.showInvalidInputMsg();
       } else {
-        View.confirmModal.hideInvalidInputMsg()
-        Model.deleteHabit(habitToDelete.name)
-        View.confirmModal.hide()
-        View.confirmModal.clear()
-        View.habit.displayHabits(Model.getAllHabits())
+        View.confirmModal.hideInvalidInputMsg();
+        Model.deleteHabit(habitToDelete.name);
+        View.confirmModal.hide();
+        View.confirmModal.clear();
+        View.habit.displayHabits(Model.getAllHabits());
         View.scrollToThisMonth();
       }
     });
