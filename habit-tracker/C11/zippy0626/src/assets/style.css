@@ -341,7 +341,7 @@ nav h1:active {
   cursor: pointer;
 }
 
-.edit-habit-form button[type="reset"] {
+.edit-habit-form button[type="submit"] {
   margin-left: auto;
 }
 
