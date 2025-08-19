@@ -103,6 +103,7 @@ const Controller = {
       View.habit.displayHabits(Model.getAllHabits());
 
       // for scrolling effect after you log a habit
+      View.scrollToThisMonth()
       let y, m, d;
       [y, m, d] = data.accessDate.split("-");
       View.scrollToMonthForHabit(Number(m) - 1, data.habitName);
